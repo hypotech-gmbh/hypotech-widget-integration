@@ -1,0 +1,15 @@
+{
+  "name": "hypotech-widget-integration",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Öffentliche Partnerdokumentation für das hypo.tech Finanzierungswidget.",
+  "type": "module",
+  "scripts": {
+    "audit": "node scripts/audit-public.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "npm run audit && npm run build"
+  },
+  "engines": {
+    "node": "20.x"
+  }
+}

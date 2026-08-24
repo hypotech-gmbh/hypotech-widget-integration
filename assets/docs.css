@@ -1,0 +1,22 @@
+.docs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding: 0 max(20px, calc((100vw - 960px) / 2));
+  border-bottom: 1px solid var(--line);
+}
+
+.docs-header a { color: var(--navy); font-size: 14px; font-weight: 750; text-decoration: none; }
+.docs-main { width: min(800px, calc(100% - 40px)); min-height: calc(100vh - 150px); margin: 0 auto; padding: 64px 0 90px; }
+.docs-main h1 { margin-bottom: 34px; font-size: clamp(38px, 6vw, 58px); }
+.docs-main h2 { margin-top: 58px; padding-top: 8px; font-size: 30px; }
+.docs-main h3 { margin-top: 34px; color: var(--navy); font-size: 21px; }
+.docs-main p, .docs-main li { color: #465268; }
+.docs-main li + li { margin-top: 7px; }
+.docs-main pre { margin: 22px 0; color: #d8e2f1; background: var(--code); border-radius: 7px; }
+.docs-main table { width: 100%; margin: 24px 0; border-collapse: collapse; font-size: 14px; }
+.docs-main th, .docs-main td { padding: 11px 13px; text-align: left; border: 1px solid var(--line); }
+.docs-main th { color: var(--navy); background: var(--quiet); }
+.docs-main blockquote { margin: 24px 0; padding: 12px 18px; color: var(--muted); background: var(--quiet); border-left: 3px solid var(--blue); }
+.docs-main code:not(pre code) { padding: 2px 5px; color: #33476c; background: #eef2f7; border-radius: 3px; }

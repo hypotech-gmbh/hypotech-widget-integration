@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Beispiel: Dynamischer Wechsel der Wohneinheit</title>
+    <link rel="stylesheet" href="../assets/examples.css" />
+  </head>
+  <body>
+    <header><strong>Beispielintegration</strong><a href="../">Zur Dokumentation</a></header>
+    <main>
+      <div class="example-head">
+        <div><h1>Dynamischer Wechsel</h1><p>Die Projektseite kann die Wohneinheit unpersönlich vorauswählen.</p></div>
+        <span class="status" id="status" role="status">Widget wird geladen …</span>
+      </div>
+      <div class="controls">
+        <label for="unit">Wohneinheit<select id="unit"></select></label>
+        <button id="apply" type="button">Auswahl an Widget senden</button>
+      </div>
+      <div class="widget-host" id="finanzierungsorientierung"></div>
+    </main>
+    <script src="https://hypotech-widget.vercel.app/v1/embed.js"></script>
+    <script src="./dynamic-unit-selection.js"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+name: Integrationsfrage
+description: Technische Frage zur öffentlichen Widget-Einbindung
+title: "[Integration] "
+labels:
+  - integration
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bitte veröffentlichen Sie keine persönlichen Daten, Zugangsdaten, Vertragsinhalte oder vertraulichen Projektinformationen. Sicherheitslücken gehören in eine private Sicherheitsmeldung.
+  - type: input
+    id: public_origin
+    attributes:
+      label: Öffentlicher Ursprung der Testseite
+      description: Nur ein öffentlicher Ursprung ohne Zugangsdaten oder Pfade, zum Beispiel https://staging.partner.de
+      placeholder: https://staging.partner.de
+  - type: input
+    id: project
+    attributes:
+      label: Öffentliche Projektkennung
+      placeholder: schoenauer-weg
+  - type: textarea
+    id: problem
+    attributes:
+      label: Beobachtetes Verhalten
+      description: Beschreiben Sie Schritte, erwartetes Verhalten und Browser. Verwenden Sie ausschließlich erfundene Testwerte.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Datenschutzprüfung
+      options:
+        - label: Ich habe sämtliche persönlichen, vertraulichen und sicherheitsrelevanten Angaben entfernt.
+          required: true
