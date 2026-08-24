@@ -1,8 +1,8 @@
 :root {
-  --vp-c-brand-1: #3f568d;
-  --vp-c-brand-2: #314574;
-  --vp-c-brand-3: #26385f;
-  --vp-c-brand-soft: rgba(63, 86, 141, 0.12);
+  --vp-c-brand-1: #1b3a66;
+  --vp-c-brand-2: #234a7f;
+  --vp-c-brand-3: #132d51;
+  --vp-c-brand-soft: rgba(27, 58, 102, 0.1);
   --vp-c-bg-alt: #f7f8fa;
   --vp-c-divider: #e3e6eb;
   --vp-c-text-1: #182238;
@@ -10,6 +10,11 @@
   --vp-font-family-base: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --vp-font-family-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --vp-layout-max-width: 1280px;
+}
+
+.VPNavBarTitle .logo {
+  width: 120px;
+  height: 32px;
 }
 
 .VPNavBar .container,

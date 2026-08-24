@@ -8,15 +8,21 @@ export default defineConfig({
   outDir: '../dist/docs',
   cleanUrls: true,
   lastUpdated: true,
+  appearance: false,
   sitemap: {
     hostname: 'https://widgets.hypo.tech/docs/',
   },
   head: [
     ['meta', { name: 'theme-color', content: '#ffffff' }],
     ['meta', { name: 'color-scheme', content: 'light' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/docs/brand/hypotech-mark.svg' }],
   ],
   themeConfig: {
-    siteTitle: 'hypo.tech Widget',
+    logo: {
+      src: '/brand/hypotech-logo.svg',
+      alt: 'hypotech',
+    },
+    siteTitle: false,
     search: { provider: 'local' },
     nav: [
       { text: 'Quickstart', link: '/integration' },
