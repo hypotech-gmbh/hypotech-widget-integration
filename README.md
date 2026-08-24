@@ -2,9 +2,9 @@
 
 Public developer documentation and examples for the hypo.tech financing widget.
 
-- [Documentation](https://hypotech-widget-integration.vercel.app/docs/)
-- [Quickstart](https://hypotech-widget-integration.vercel.app/docs/integration)
-- [Live example](https://hypotech-widget-integration.vercel.app/docs/examples/helper-script.html)
+- [Documentation](https://widgets.hypo.tech/docs/)
+- [Quickstart](https://widgets.hypo.tech/docs/integration)
+- [Live example](https://widgets.hypo.tech/docs/examples/helper-script/)
 
 ## Quickstart
 

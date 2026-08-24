@@ -11,7 +11,8 @@ hero:
       link: /integration
     - theme: alt
       text: Live example
-      link: /examples/helper-script.html
+      link: /examples/helper-script/
+      target: _self
 
 features:
   - title: Small API
