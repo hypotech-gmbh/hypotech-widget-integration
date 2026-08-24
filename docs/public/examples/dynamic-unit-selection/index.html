@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Example: Dynamic unit selection</title>
+    <link rel="stylesheet" href="/docs/examples/examples.css" />
+  </head>
+  <body>
+    <header><img src="/docs/brand/hypotech-logo.svg" alt="hypotech" /><a href="/docs/">Back to docs</a></header>
+    <main>
+      <div class="example-head">
+        <div><h1>Dynamic unit selection</h1><p>Update the selected unit from the host page.</p></div>
+        <span class="status" id="status" role="status">Loading widget…</span>
+      </div>
+      <div class="controls">
+        <label for="unit">Unit<select id="unit"></select></label>
+        <button id="apply" type="button">Update widget</button>
+      </div>
+      <div class="widget-host" id="finanzierungsorientierung"></div>
+    </main>
+    <script src="https://widgets.hypo.tech/v1/embed.js"></script>
+    <script src="/docs/examples/dynamic-unit-selection.js"></script>
+  </body>
+</html>

@@ -27,7 +27,7 @@ export default defineConfig({
     nav: [
       { text: 'Quickstart', link: '/integration' },
       { text: 'API', link: '/messages' },
-      { text: 'Examples', link: '/examples/helper-script.html' },
+      { text: 'Examples', link: '/examples/helper-script/', target: '_self' },
       { text: 'GitHub', link: 'https://github.com/hypotech-gmbh/hypotech-widget-integration' },
     ],
     sidebar: [

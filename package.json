@@ -9,12 +9,14 @@
     "docs:dev": "vitepress dev docs",
     "build": "node scripts/clean.mjs && vitepress build docs",
     "docs:preview": "vitepress preview docs",
+    "test:e2e": "playwright test",
     "test": "npm run audit && npm run build"
   },
   "engines": {
     "node": "24.x"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "vitepress": "^2.0.0-alpha.19"
   }
 }
