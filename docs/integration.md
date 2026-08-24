@@ -1,14 +1,8 @@
-# Einbindung und Konfiguration
+# Quickstart
 
-## Voraussetzungen
+Use the helper script unless you need full control over `postMessage` handling.
 
-1. Sie besitzen die Projekt- und Partnerkennung von hypo.tech.
-2. Die vollständigen Ursprünge Ihrer Produktiv- und Testseiten wurden von hypo.tech freigegeben.
-3. Die Seite wird über HTTPS ausgeliefert.
-
-Ein Ursprung besteht aus Protokoll, Hostname und gegebenenfalls Port. Pfade gehören nicht dazu.
-
-## Empfohlene Einbindung
+## Helper script
 
 ```html
 <div id="finanzierungsorientierung"></div>
@@ -25,15 +19,15 @@ Ein Ursprung besteht aus Protokoll, Hostname und gegebenenfalls Port. Pfade geh�
 </script>
 ```
 
-Das Helferskript erstellt das iframe, prüft eingehende Nachrichten und passt die Höhe automatisch an.
+The helper creates the iframe, validates widget messages and keeps its height in sync.
 
-## Direkte iframe-Einbindung
+## Direct iframe
 
 ```html
 <iframe
   id="hypotech-financing-widget"
   src="https://hypotech-widget.vercel.app/v1/widget/heim-leben/?project=schoenauer-weg&unit=7&parking=hub&household=joint"
-  title="Unverbindliche Finanzierungsorientierung von hypo.tech"
+  title="Financing guidance by hypo.tech"
   loading="lazy"
   referrerpolicy="strict-origin-when-cross-origin"
   sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin"
@@ -41,22 +35,21 @@ Das Helferskript erstellt das iframe, prüft eingehende Nachrichten und passt di
 ></iframe>
 ```
 
-Die Attribute `referrerpolicy` und `sandbox` sollten unverändert übernommen werden.
+Keep `referrerpolicy` and `sandbox` unchanged.
 
-## Unpersönliche Startparameter
+## Options
 
-| Parameter | Beispiel | Bedeutung |
+| Option | Example | Description |
 | --- | --- | --- |
-| `project` | `schoenauer-weg` | von hypo.tech veröffentlichte Projektkennung |
-| `unit` | `7` | anfänglich ausgewählte Wohneinheit |
-| `parking` | `hub` | anfängliche Stellplatzvariante |
-| `household` | `single` oder `joint` | alleinige oder gemeinsame Finanzierung |
+| `project` | `schoenauer-weg` | Published project slug |
+| `partner` | `heim-leben` | Published partner slug |
+| `unit` | `7` | Initial unit |
+| `parking` | `hub` | Initial parking option |
+| `household` | `single` or `joint` | Initial household mode |
 
-Andere Parameter werden nicht unterstützt. Persönliche oder finanzielle Angaben dürfen niemals Bestandteil der Adresse sein.
+Never put age, income, equity, assets or other personal data in the URL.
 
-## Nachträgliche Änderung
-
-Die mit `mount` zurückgegebene Instanz kann unpersönliche Einstellungen ändern:
+## Update an instance
 
 ```js
 widget.configure({
@@ -66,12 +59,10 @@ widget.configure({
 })
 ```
 
-## Abbau des Widgets
-
-Bei Einzelseitenanwendungen kann die Einbindung beim Verlassen einer Ansicht entfernt werden:
+## Destroy an instance
 
 ```js
 widget.destroy()
 ```
 
-Dadurch werden iframe und Nachrichtenüberwachung entfernt.
+This removes the iframe and its event listeners.

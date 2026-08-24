@@ -1,25 +1,25 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>Beispiel: Direkte iframe-Einbindung</title>
-    <link rel="stylesheet" href="../assets/examples.css" />
+    <title>Example: Direct iframe</title>
+    <link rel="stylesheet" href="./examples.css" />
   </head>
   <body>
-    <header><strong>Beispielintegration</strong><a href="../">Zur Dokumentation</a></header>
+    <header><strong>Integration example</strong><a href="../">Back to docs</a></header>
     <main>
       <div class="example-head">
-        <div><h1>Direkte iframe-Einbindung</h1><p>Mit genauer Ursprungs- und Fensterprüfung.</p></div>
-        <span class="status" id="status" role="status">Widget wird geladen …</span>
+        <div><h1>Direct iframe</h1><p>Manual origin and source-window validation.</p></div>
+        <span class="status" id="status" role="status">Loading widget…</span>
       </div>
       <div class="widget-host">
         <iframe
           class="widget-frame"
           id="hypotech-financing-widget"
           src="https://hypotech-widget.vercel.app/v1/widget/heim-leben/?project=schoenauer-weg&unit=7&parking=hub&household=joint"
-          title="Unverbindliche Finanzierungsorientierung von hypo.tech"
+          title="Financing guidance by hypo.tech"
           loading="eager"
           referrerpolicy="strict-origin-when-cross-origin"
           sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin"

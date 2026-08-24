@@ -19,7 +19,7 @@ async function walk(directory) {
   for (const entry of await fs.readdir(directory, { withFileTypes: true })) {
     if (ignoredDirectories.has(entry.name)) continue
     const fullPath = path.join(directory, entry.name)
-    if (entry.isSymbolicLink()) throw new Error(`Symbolische Verknüpfung nicht zulässig: ${path.relative(root, fullPath)}`)
+    if (entry.isSymbolicLink()) throw new Error(`Symlinks are not allowed: ${path.relative(root, fullPath)}`)
     if (entry.isDirectory()) files.push(...(await walk(fullPath)))
     if (entry.isFile()) files.push(fullPath)
   }
@@ -34,25 +34,25 @@ for (const file of files) {
   const extension = path.extname(file).toLowerCase()
   const stat = await fs.stat(file)
   if (forbiddenExtensions.has(extension) || path.basename(file).startsWith('.env')) {
-    errors.push(`${relativePath}: nicht für die öffentliche Ablage zugelassener Dateityp`)
+    errors.push(`${relativePath}: file type is not allowed in the public repository`)
     continue
   }
-  if (stat.size > 500_000) errors.push(`${relativePath}: Datei ist ungewöhnlich groß (${stat.size} Byte)`)
+  if (stat.size > 500_000) errors.push(`${relativePath}: unusually large file (${stat.size} bytes)`)
 
   const contents = await fs.readFile(file, 'utf8')
   for (const { label, pattern } of sensitivePatterns) {
-    if (pattern.test(contents)) errors.push(`${relativePath}: möglicher vertraulicher Inhalt (${label})`)
+    if (pattern.test(contents)) errors.push(`${relativePath}: possible sensitive content (${label})`)
   }
 
-  const runtimeUrls = contents.match(/https:\/\/hypotech-widget\.vercel\.app[^\s"'<>)]*/g) || []
+  const runtimeUrls = contents.match(/https:\/\/(?:hypotech-widget\.vercel\.app|widgets\.hypo\.tech)[^\s"'<>)]*/g) || []
   for (const url of runtimeUrls) {
-    if (/[?&](?:age|income|equity|assets)=/i.test(url)) errors.push(`${relativePath}: persönliche Angabe in Widget-Adresse`)
+    if (/[?&](?:age|income|equity|assets)=/i.test(url)) errors.push(`${relativePath}: personal value in widget URL`)
   }
 }
 
 if (errors.length) {
-  console.error(`Öffentlichkeitsprüfung fehlgeschlagen:\n- ${errors.join('\n- ')}`)
+  console.error(`Public repository audit failed:\n- ${errors.join('\n- ')}`)
   process.exit(1)
 }
 
-console.log(`✓ ${files.length} öffentliche Dateien geprüft: keine Zugangsdaten, privaten Schlüssel, lokalen Pfade oder persönlichen URL-Parameter gefunden.`)
+console.log(`✓ Audited ${files.length} public files: no credentials, private keys, local paths or personal URL parameters found.`)

@@ -1,9 +1,9 @@
-# Änderungsverlauf
+# Changelog
 
 ## 1.0.0 – 2026-08-24
 
-- Erste öffentliche Integrationsdokumentation
-- Direkte iframe-Einbindung und Helferskript beschrieben
-- Nachrichtenvertrag für `ready`, `resize` und `unit-change`
-- Sicherheits-, Datenschutz- und Inbetriebnahmehinweise
-- Ausführbare Beispiele und TypeScript-Typdefinitionen
+- First public integration documentation
+- Direct iframe and helper-script examples
+- Message contract for `ready`, `resize` and `unit-change`
+- Security, privacy and rollout guidance
+- Runnable examples and TypeScript definitions

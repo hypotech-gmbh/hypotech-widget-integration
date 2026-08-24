@@ -1,26 +1,19 @@
-# hypo.tech Finanzierungswidget – Partnerintegration
+# hypo.tech Widget Integration
 
-Öffentliche Integrationsdokumentation für Partner, Projektentwickler und betreuende Internetagenturen.
+Public developer documentation and examples for the hypo.tech financing widget.
 
-Diese Ablage enthält ausschließlich:
+- [Documentation](https://hypotech-widget-integration.vercel.app/docs/)
+- [Quickstart](https://hypotech-widget-integration.vercel.app/docs/integration)
+- [Live example](https://hypotech-widget-integration.vercel.app/docs/examples/helper-script.html)
 
-- die öffentliche Einbindungsschnittstelle,
-- kopierbare Beispiele,
-- die Nachrichten- und Konfigurationsverträge,
-- Hinweise zu Sicherheit, Datenschutz und Inbetriebnahme.
-
-Die Implementierung des Widgets, interne Berechnungslogik, nicht veröffentlichte Projekte und betriebliche Konfigurationen sind **nicht** Bestandteil dieser Ablage.
-
-**Dokumentationsseite:** <https://hypotech-widget-integration.vercel.app>
-
-## Schnellstart
+## Quickstart
 
 ```html
-<div id="finanzierungsorientierung"></div>
+<div id="financing-widget"></div>
 
 <script src="https://hypotech-widget.vercel.app/v1/embed.js"></script>
 <script>
-  HypotechWidget.mount('#finanzierungsorientierung', {
+  HypotechWidget.mount('#financing-widget', {
     project: 'schoenauer-weg',
     partner: 'heim-leben',
     unit: 7,
@@ -30,49 +23,24 @@ Die Implementierung des Widgets, interne Berechnungslogik, nicht veröffentlicht
 </script>
 ```
 
-Die Internetadresse der einbettenden Seite muss vorab von hypo.tech freigegeben werden. Für die Freigabe werden ausschließlich vollständige Ursprünge benötigt, beispielsweise:
+The host origin must be approved by hypo.tech. No API key is required. Never put personal or financial data in the iframe URL.
 
-```text
-https://www.partner.de
-https://staging.partner.de
+## Local development
+
+```bash
+npm install
+npm run docs:dev
 ```
 
-## Dokumentation
+The site uses [VitePress](https://vitepress.dev/) and builds below `/docs/`.
 
-- [Einbindung und Konfiguration](docs/integration.md)
-- [Nachrichtenvertrag](docs/messages.md)
-- [Sicherheit und Datenschutz](docs/security-and-privacy.md)
-- [Inbetriebnahme](docs/onboarding.md)
-- [Fehlerbehebung](docs/troubleshooting.md)
-- [Typdefinitionen](types/hypotech-widget.d.ts)
+## Public scope
 
-## Ausführbare Beispiele
+This repository contains only the public integration contract, examples and TypeScript definitions. Widget source code, calculation logic, unpublished project data and operational configuration remain private.
 
-- [Direkte iframe-Einbindung](examples/basic-iframe.html)
-- [Einbindung mit dem Helferskript](examples/helper-script.html)
-- [Dynamischer Wechsel der Wohneinheit](examples/dynamic-unit-selection.html)
+## Support
 
-## Öffentliche Endpunkte
+- [Integration issue](https://github.com/hypotech-gmbh/hypotech-widget-integration/issues/new/choose)
+- [Private security report](https://github.com/hypotech-gmbh/hypotech-widget-integration/security/advisories/new)
 
-| Zweck | Adresse |
-| --- | --- |
-| Beispielprojektseite | <https://hypotech-widget.vercel.app> |
-| Widget, API-Version 1 | <https://hypotech-widget.vercel.app/v1/widget/heim-leben/?project=schoenauer-weg> |
-| Helferskript | <https://hypotech-widget.vercel.app/v1/embed.js> |
-| Versionsinformation | <https://hypotech-widget.vercel.app/v1/release.json> |
-
-## Wichtige Datengrenze
-
-Alter, Einkommen, Eigenkapital, Vermögen oder andere persönliche Angaben dürfen niemals als Adressparameter übergeben werden. Das Widget sendet diese Eingaben auch nicht an die einbettende Seite.
-
-Zulässige unpersönliche Startparameter sind `project`, `unit`, `parking` und `household`.
-
-## Unterstützung
-
-Allgemeine Integrationsfragen können als GitHub-Issue gestellt werden. Bitte veröffentlichen Sie dabei keine persönlichen Daten, Zugangsdaten, Vertragsinhalte oder vertraulichen Projektinformationen.
-
-Sicherheitsrelevante Hinweise bitte ausschließlich über eine [private GitHub-Sicherheitsmeldung](../../security/advisories/new) übermitteln.
-
-## Lizenz
-
-Die Beispielimplementierungen und Typdefinitionen stehen unter der [MIT-Lizenz](LICENSE). Namen, Marken und Logos von hypo.tech oder Partnern werden dadurch nicht zur anderweitigen Nutzung freigegeben.
+Examples and TypeScript definitions are available under the [MIT License](LICENSE). Brand names and logos are not licensed for reuse.

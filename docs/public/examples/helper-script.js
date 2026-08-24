@@ -2,11 +2,11 @@ const host = document.querySelector('#finanzierungsorientierung')
 const status = document.querySelector('#status')
 
 host.addEventListener('hypotech:ready', () => {
-  status.textContent = 'Widget geladen'
+  status.textContent = 'Widget ready'
 })
 
 host.addEventListener('hypotech:unit-change', (event) => {
-  status.textContent = `Wohneinheit ${event.detail.unitId} ausgewählt`
+  status.textContent = `Unit ${event.detail.unitId} selected`
 })
 
 window.HypotechWidget.mount(host, {

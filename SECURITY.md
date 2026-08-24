@@ -1,15 +1,5 @@
-# Sicherheitsmeldungen
+# Security
 
-Bitte veröffentlichen Sie Sicherheitslücken nicht als öffentliches Issue.
+Do not report vulnerabilities in a public issue. Use [GitHub private vulnerability reporting](https://github.com/hypotech-gmbh/hypotech-widget-integration/security/advisories/new).
 
-Nutzen Sie stattdessen die Funktion **Security → Report a vulnerability** dieser GitHub-Ablage. Dadurch wird eine private Sicherheitsmeldung erstellt, die nur die zuständigen Personen einsehen können.
-
-Bitte fügen Sie nach Möglichkeit folgende Angaben bei:
-
-- betroffene öffentliche Adresse,
-- nachvollziehbare Schritte,
-- erwartetes und beobachtetes Verhalten,
-- mögliche Auswirkungen,
-- vorgeschlagene Abhilfe, falls bekannt.
-
-Übermitteln Sie keine echten persönlichen Finanzdaten. Verwenden Sie ausschließlich erfundene Testwerte.
+Include the affected public URL, reproduction steps, impact and a suggested fix if available. Use synthetic test data only.

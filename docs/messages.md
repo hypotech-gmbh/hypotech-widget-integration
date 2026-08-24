@@ -1,12 +1,10 @@
-# Nachrichtenvertrag
+# Events
 
-Das Widget und die einbettende Seite kommunizieren über `window.postMessage`. Nachrichten müssen anhand von Ursprung, Fensterquelle, Projekt- und Partnerkennung geprüft werden.
+The iframe uses `window.postMessage`. Validate the exact origin, source window, project and partner before handling a message.
 
-## Nachrichten des Widgets
+## Widget messages
 
 ### `ready`
-
-Das Widget wurde geladen und die veröffentlichte Konfiguration ist verfügbar.
 
 ```json
 {
@@ -21,8 +19,6 @@ Das Widget wurde geladen und die veröffentlichte Konfiguration ist verfügbar.
 
 ### `resize`
 
-Das Widget meldet die benötigte Dokumenthöhe in Pixeln.
-
 ```json
 {
   "source": "hypotech-widget",
@@ -36,8 +32,6 @@ Das Widget meldet die benötigte Dokumenthöhe in Pixeln.
 
 ### `unit-change`
 
-Die besuchende Person hat eine andere Wohneinheit ausgewählt.
-
 ```json
 {
   "source": "hypotech-widget",
@@ -49,7 +43,7 @@ Die besuchende Person hat eine andere Wohneinheit ausgewählt.
 }
 ```
 
-## Sicherheitsprüfung beim direkten iframe
+## Validate messages
 
 ```js
 const frame = document.querySelector('#hypotech-financing-widget')
@@ -64,12 +58,12 @@ window.addEventListener('message', (event) => {
   if (message.project !== 'schoenauer-weg') return
   if (message.partner !== 'heim-leben') return
 
-  // Nachricht verarbeiten
+  // Handle the message
 })
 ```
 
-Verwenden Sie niemals `'*'` als Zielursprung für eigene Nachrichten an das Widget.
+Never use `'*'` as the target origin when sending messages to the widget.
 
-## Datengrenze
+## Data boundary
 
-Nachrichten enthalten keine Angaben zu Alter, Einkommen, Eigenkapital, Vermögen oder berechneten persönlichen Ergebnissen. Diese Daten dürfen auch von der einbettenden Seite nicht aus dem iframe ausgelesen oder nachgebildet werden.
+Messages never contain age, income, equity, assets or calculated personal results. The host page must not attempt to read or reproduce those values.

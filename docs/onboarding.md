@@ -1,50 +1,29 @@
-# Inbetriebnahme
+# Go live
 
-## 1. Angaben des Partners
+## 1. Send setup data
 
-Bitte stellen Sie hypo.tech folgende unpersönliche Angaben bereit:
+Send hypo.tech:
 
-- Name des Projekts,
-- gewünschte Projektkennung,
-- Produktivursprung der Projektseite,
-- gegebenenfalls Test- oder Vorschauursprung,
-- gewünschte anfängliche Wohneinheit,
-- zuständige technische Ansprechperson über den bestehenden Kommunikationsweg.
+- project name,
+- staging and production origins,
+- preferred project slug,
+- technical contact.
 
-Übermitteln Sie dabei keine Käufer- oder Finanzierungsdaten.
+Do not send customer or financial data.
 
-## 2. Einrichtung durch hypo.tech
+## 2. Receive configuration
 
-hypo.tech richtet ein:
+hypo.tech provides the project slug, partner slug and ready-to-use embed snippet.
 
-- Projektkennung,
-- Partnerkennung,
-- veröffentlichte Projektdaten,
-- freigegebene Ursprünge,
-- Partnerdarstellung und rechtliche Hinweise,
-- versioniertes Finanzierungsprofil.
+## 3. Test
 
-## 3. Prüfung auf der Testseite
+- Desktop and mobile layout
+- Automatic height updates
+- Unit and parking selection
+- Single and joint household modes
+- Keyboard navigation
+- External-link notice
 
-Prüfen Sie mindestens:
+## 4. Release
 
-- Darstellung auf Mobiltelefon, Tablet und Rechner,
-- automatische Höhenanpassung ohne innere Bildlaufleiste,
-- Wechsel der Wohneinheit,
-- alleinige und gemeinsame Finanzierung,
-- Stellplatzvarianten,
-- Kennzeichnung des externen Wechsels zu hypo.tech,
-- Tastaturbedienung und sichtbare Fokusmarkierung.
-
-## 4. Produktivfreigabe
-
-Nach erfolgreicher Prüfung wird der Produktivursprung freigegeben. Änderungen der Domain, des Protokolls oder des Ports müssen vor dem Umzug erneut gemeldet werden.
-
-## Abnahmeliste
-
-- [ ] Projekt- und Partnerkennung stimmen.
-- [ ] Test- und Produktivursprung sind vollständig angegeben.
-- [ ] Keine persönlichen Angaben stehen in der iframe-Adresse.
-- [ ] Das Widget ist bei typischen Bildschirmbreiten vollständig sichtbar.
-- [ ] Nachrichten werden nur nach genauer Ursprungsprüfung verarbeitet.
-- [ ] Externe Verlinkung und rechtlicher Hinweis sind sichtbar.
+After approval, hypo.tech adds the production origin to the allowlist. Any change to scheme, host or port requires a new approval.

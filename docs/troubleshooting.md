@@ -1,31 +1,25 @@
-# Fehlerbehebung
+# Troubleshooting
 
-## Das Widget bleibt leer oder der Browser verweigert die Darstellung
+## The iframe is blocked
 
-Wahrscheinlich ist der Ursprung der einbettenden Seite noch nicht freigegeben. Prüfen Sie in der Entwicklerkonsole auf einen Hinweis zu `Content-Security-Policy` oder `frame-ancestors` und senden Sie hypo.tech den vollständigen Ursprung.
+Check the browser console for `Content-Security-Policy` or `frame-ancestors`. The exact host origin must be approved by hypo.tech.
 
-## Das Widget besitzt eine innere Bildlaufleiste
+## The iframe scrolls internally
 
-Verwenden Sie das öffentliche Helferskript oder verarbeiten Sie `resize`-Nachrichten. Prüfen Sie dabei Ursprung und Fensterquelle wie im [Nachrichtenvertrag](messages.md) beschrieben.
+Use the helper script or handle `resize` messages as shown in [Events](messages.md).
 
-## Die ausgewählte Wohneinheit stimmt nicht
+## The wrong unit is selected
 
-Prüfen Sie, ob `unit` eine im Projekt veröffentlichte numerische Kennung enthält. Nicht vorhandene Werte werden durch die voreingestellte Wohneinheit ersetzt.
+`unit` must be a published numeric unit ID. Invalid values fall back to the project's default unit.
 
-## Eine Konfigurationsnachricht wird ignoriert
+## A configure message is ignored
 
-Prüfen Sie:
+Check that the origin is approved and the message uses `source: 'hypotech-host'`, `type: 'configure'` and only `unit`, `unitId`, `parking` or `household`.
 
-1. Die Nachricht stammt vom Fenster der einbettenden Seite.
-2. Der Ursprung ist von hypo.tech freigegeben.
-3. `source` lautet `hypotech-host`.
-4. `type` lautet `configure`.
-5. Es werden ausschließlich `unit`, `unitId`, `parking` oder `household` verwendet.
+## The helper script is blocked
 
-## Das Helferskript ist nicht verfügbar
+Allow `https://hypotech-widget.vercel.app` in your page's `script-src` directive.
 
-Prüfen Sie, ob die Content-Security-Policy Ihrer Seite Skripte von `https://hypotech-widget.vercel.app` erlaubt. Bei restriktiven Richtlinien muss dieser Ursprung in `script-src` aufgenommen werden.
+## Report a problem
 
-## Meldung eines Problems
-
-Ein öffentliches Issue darf nur technische, unpersönliche Angaben enthalten. Entfernen Sie Bildschirmfotos mit persönlichen Daten, Zugangsdaten, unveröffentlichten Projektinformationen oder internen Adressen.
+Open an [integration issue](https://github.com/hypotech-gmbh/hypotech-widget-integration/issues/new/choose) with synthetic test data only.

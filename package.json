@@ -2,14 +2,19 @@
   "name": "hypotech-widget-integration",
   "version": "1.0.0",
   "private": true,
-  "description": "Öffentliche Partnerdokumentation für das hypo.tech Finanzierungswidget.",
+  "description": "Public developer documentation for the hypo.tech financing widget.",
   "type": "module",
   "scripts": {
     "audit": "node scripts/audit-public.mjs",
-    "build": "node scripts/build.mjs",
+    "docs:dev": "vitepress dev docs",
+    "build": "node scripts/clean.mjs && vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "test": "npm run audit && npm run build"
   },
   "engines": {
     "node": "24.x"
+  },
+  "devDependencies": {
+    "vitepress": "^2.0.0-alpha.19"
   }
 }

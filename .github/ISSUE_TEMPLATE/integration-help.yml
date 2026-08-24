@@ -1,5 +1,5 @@
-name: Integrationsfrage
-description: Technische Frage zur öffentlichen Widget-Einbindung
+name: Integration question
+description: Technical question about the public widget integration
 title: "[Integration] "
 labels:
   - integration
@@ -7,29 +7,29 @@ body:
   - type: markdown
     attributes:
       value: |
-        Bitte veröffentlichen Sie keine persönlichen Daten, Zugangsdaten, Vertragsinhalte oder vertraulichen Projektinformationen. Sicherheitslücken gehören in eine private Sicherheitsmeldung.
+        Do not post personal data, credentials, contracts or confidential project information. Report vulnerabilities privately.
   - type: input
     id: public_origin
     attributes:
-      label: Öffentlicher Ursprung der Testseite
-      description: Nur ein öffentlicher Ursprung ohne Zugangsdaten oder Pfade, zum Beispiel https://staging.partner.de
+      label: Public staging origin
+      description: Origin only, with no credentials or paths. Example: https://staging.partner.de
       placeholder: https://staging.partner.de
   - type: input
     id: project
     attributes:
-      label: Öffentliche Projektkennung
+      label: Public project slug
       placeholder: schoenauer-weg
   - type: textarea
     id: problem
     attributes:
-      label: Beobachtetes Verhalten
-      description: Beschreiben Sie Schritte, erwartetes Verhalten und Browser. Verwenden Sie ausschließlich erfundene Testwerte.
+      label: Observed behavior
+      description: Include steps, expected behavior and browser. Use synthetic test data only.
     validations:
       required: true
   - type: checkboxes
     id: safety
     attributes:
-      label: Datenschutzprüfung
+      label: Data check
       options:
-        - label: Ich habe sämtliche persönlichen, vertraulichen und sicherheitsrelevanten Angaben entfernt.
+        - label: I removed all personal, confidential and security-sensitive information.
           required: true
