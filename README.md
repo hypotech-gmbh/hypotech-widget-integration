@@ -11,6 +11,8 @@ Diese Ablage enthält ausschließlich:
 
 Die Implementierung des Widgets, interne Berechnungslogik, nicht veröffentlichte Projekte und betriebliche Konfigurationen sind **nicht** Bestandteil dieser Ablage.
 
+**Dokumentationsseite:** <https://hypotech-widget-integration.vercel.app>
+
 ## Schnellstart
 
 ```html

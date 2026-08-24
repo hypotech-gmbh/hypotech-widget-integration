@@ -10,6 +10,6 @@
     "test": "npm run audit && npm run build"
   },
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   }
 }
