@@ -20,7 +20,7 @@ const widget = window.HypotechWidget.mount(host, {
 })
 
 host.addEventListener('hypotech:ready', () => {
-  status.textContent = 'Widget ready'
+  status.textContent = 'Ready'
 })
 
 host.addEventListener('hypotech:unit-change', (event) => {

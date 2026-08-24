@@ -2,7 +2,7 @@
 
 The iframe uses `window.postMessage`. Validate the exact origin, source window, project and partner before handling a message.
 
-## Widget messages
+## widget messages
 
 ### `ready`
 

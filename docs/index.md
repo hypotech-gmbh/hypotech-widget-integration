@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: hypo.tech Widget
+  name: hypo.tech widget
   text: Embed financing guidance in minutes.
   tagline: A versioned, responsive iframe for property project pages. No API key. Personal inputs stay inside the widget.
   actions:

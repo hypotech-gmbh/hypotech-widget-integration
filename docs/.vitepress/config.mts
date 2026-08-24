@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   lang: 'en-US',
-  title: 'hypo.tech Widget',
+  title: 'hypo.tech widget',
   description: 'Developer documentation for the hypo.tech financing widget.',
   base: '/docs/',
   outDir: '../dist/docs',

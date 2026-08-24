@@ -1,4 +1,4 @@
-# hypo.tech Widget Integration
+# hypo.tech widget integration
 
 Public developer documentation and examples for the hypo.tech financing widget.
 
@@ -36,7 +36,7 @@ The site uses [VitePress](https://vitepress.dev/) and builds below `/docs/`.
 
 ## Public scope
 
-This repository contains only the public integration contract, examples and TypeScript definitions. Widget source code, calculation logic, unpublished project data and operational configuration remain private.
+This repository contains only the public integration contract, examples and TypeScript definitions. Source code for the widget, calculation logic, unpublished project data and operational configuration remain private.
 
 ## Support
 

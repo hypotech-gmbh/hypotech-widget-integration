@@ -18,6 +18,6 @@ window.addEventListener('message', (event) => {
     frame.style.height = `${Math.min(Math.max(Math.ceil(message.height), 420), 2400)}px`
   }
 
-  if (message.type === 'ready') status.textContent = 'Widget ready'
+  if (message.type === 'ready') status.textContent = 'Ready'
   if (message.type === 'unit-change') status.textContent = `Unit ${message.unitId} selected`
 })
