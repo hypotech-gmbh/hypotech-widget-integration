@@ -7,7 +7,7 @@ Use the helper script unless you need full control over `postMessage` handling.
 ```html
 <div id="finanzierungsorientierung"></div>
 
-<script src="https://hypotech-widget.vercel.app/v1/embed.js"></script>
+<script src="https://widgets.hypo.tech/v1/embed.js"></script>
 <script>
   const widget = HypotechWidget.mount('#finanzierungsorientierung', {
     project: 'schoenauer-weg',
@@ -26,7 +26,7 @@ The helper creates the iframe, validates widget messages and keeps its height in
 ```html
 <iframe
   id="hypotech-financing-widget"
-  src="https://hypotech-widget.vercel.app/v1/widget/heim-leben/?project=schoenauer-weg&unit=7&parking=hub&household=joint"
+  src="https://widgets.hypo.tech/v1/widget/heim-leben/?project=schoenauer-weg&unit=7&parking=hub&household=joint"
   title="Financing guidance by hypo.tech"
   loading="lazy"
   referrerpolicy="strict-origin-when-cross-origin"

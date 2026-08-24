@@ -18,7 +18,7 @@ Check that the origin is approved and the message uses `source: 'hypotech-host'`
 
 ## The helper script is blocked
 
-Allow `https://hypotech-widget.vercel.app` in your page's `script-src` directive.
+Allow `https://widgets.hypo.tech` in your page's `script-src` directive.
 
 ## Report a problem
 

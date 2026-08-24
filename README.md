@@ -11,7 +11,7 @@ Public developer documentation and examples for the hypo.tech financing widget.
 ```html
 <div id="financing-widget"></div>
 
-<script src="https://hypotech-widget.vercel.app/v1/embed.js"></script>
+<script src="https://widgets.hypo.tech/v1/embed.js"></script>
 <script>
   HypotechWidget.mount('#financing-widget', {
     project: 'schoenauer-weg',
