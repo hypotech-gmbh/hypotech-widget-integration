@@ -29,14 +29,29 @@ Use [GitHub private vulnerability reporting](https://github.com/hypotech-gmbh/hy
 
 ## What the embedding page must allow
 
-Your own `Content-Security-Policy` applies to the iframe as well. Without these directives the widget stays on its loading state and browsers report nothing, because a blocked frame is not a console error:
+Your own `Content-Security-Policy` governs what the widget needs. Which directives are required depends on the integration:
 
 ```text
-script-src 'self' https://widgets.hypo.tech;
-frame-src  https://widgets.hypo.tech;
+Embedded:  script-src  'self' https://widgets.hypo.tech;
+           connect-src 'self' https://widgets.hypo.tech;
+           img-src     'self' https://widgets.hypo.tech;
+
+Iframe:    script-src  'self' https://widgets.hypo.tech;
+           frame-src          https://widgets.hypo.tech;
 ```
 
-`script-src` is required for the helper script, `frame-src` for the iframe it creates. Adding `https://widgets.hypo.tech` to `default-src` covers both. Your page never needs to allow anything else for the widget.
+- `script-src` loads the helper script and, in embedded mode, the widget's modules.
+- `connect-src` allows the configuration JSON to be fetched. It is only needed in embedded mode, where the configuration lives on a different origin than the page.
+- `img-src` allows the partner logo. Only needed in embedded mode.
+- `frame-src` allows the iframe. Only needed in iframe mode.
+
+If your policy sets a `default-src` that does not include `https://widgets.hypo.tech`, listing only `script-src` is not enough in embedded mode: the widget renders its shell but stays without data, and the console reports a refused connection.
+
+Adding `https://widgets.hypo.tech` to `default-src` covers all of them.
+
+Also allow inline styles (`style-src 'unsafe-inline'` or `default-src` with `'unsafe-inline'`). The widget applies your brand colours as an inline style; without it the widget loads but stays uncoloured.
+
+In iframe mode, a missing `frame-src` produces **no console entry at all** — the frame simply stays empty and the widget shows its loading state forever.
 
 ## Preview deployments
 

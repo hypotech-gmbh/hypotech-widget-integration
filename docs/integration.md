@@ -1,6 +1,14 @@
 # Quickstart
 
-Use the helper script unless you need full control over `postMessage` handling.
+Two integrations are available. Both compute in the visitor's browser and
+transmit nothing.
+
+| | Embedded (recommended) | Iframe |
+| --- | --- | --- |
+| Rendering | In your page flow, isolated in a shadow root | Own document inside a frame |
+| Markup | `<hypo-financing …>` element | `<iframe>` created by the helper script |
+| Layout | Takes the width of its container | Fixed width of the frame |
+| Details | [Embedded integration](embedded.md) | This page |
 
 ## Helper script
 
@@ -20,6 +28,10 @@ Use the helper script unless you need full control over `postMessage` handling.
 ```
 
 The helper creates the iframe, validates widget messages and keeps its height in sync.
+
+For the embedded integration the same script registers the `hypo-financing`
+element instead — see [Embedded integration](embedded.md). That variant needs no
+height synchronisation at all, because the widget simply follows the page flow.
 
 ## Direct iframe
 
@@ -66,6 +78,17 @@ widget.destroy()
 ```
 
 This removes the iframe and its event listeners.
+
+## Placing the widget
+
+Give the widget a full-width container of its own. It then arranges itself in
+three columns from 900 px, two columns from 620 px and a single column below
+that. A container of about 750 px — the width of a three-fifth column in a
+typical builder layout — still works but stays in the two-column arrangement.
+
+If you want a unit table on your page to drive the widget, select the row and
+call `configure({ unit })`. The embedded variant can also be wrapped in a
+container you control; when the visitor selects a unit there, forward the call.
 
 ## What the widget shows
 
