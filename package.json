@@ -7,7 +7,7 @@
   "scripts": {
     "audit": "node scripts/audit-public.mjs",
     "docs:dev": "vitepress dev docs",
-    "build": "node scripts/clean.mjs && vitepress build docs",
+    "build": "node scripts/clean.mjs && vitepress build docs && node scripts/csp-hashes.mjs",
     "docs:preview": "vitepress preview docs",
     "test:e2e": "playwright test",
     "test": "npm run audit && npm run build"
