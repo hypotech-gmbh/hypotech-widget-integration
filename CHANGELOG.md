@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 – 2026-09-13
+
+- Document what the widget shows: reference date, loan-to-value ratio, equity share and repayment term
+- Document the cases in which the widget deliberately withholds a rate
+- Document the `script-src` and `frame-src` directives the embedding page must allow
+- Document preview deployments as non-embeddable and the silent "Loading widget…" state
+
 ## 1.0.0 – 2026-08-24
 
 - First public integration documentation

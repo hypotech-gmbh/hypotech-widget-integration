@@ -66,3 +66,32 @@ widget.destroy()
 ```
 
 This removes the iframe and its event listeners.
+
+## What the widget shows
+
+The widget displays an unverbindliche Modellrechnung (non-binding model calculation). Next to the monthly rate it discloses the figures that drive a lender's decision:
+
+| Figure | Meaning |
+| --- | --- |
+| Stand | Reference date of the financing assumptions, taken from the published financing profile |
+| Beleihungsauslauf | Loan amount in relation to the lending value (90 % of the purchase price) |
+| Eigenkapitalanteil | Equity in relation to total costs, including ancillary acquisition costs |
+| Tilgungsverlauf | Calculated repayment term at a constant monthly payment |
+
+Your page does not need to do anything for these values. They arrive inside the iframe with the `ready` message.
+
+## When the widget shows no rate
+
+The widget deliberately withholds the monthly rate whenever a figure would describe a financing that cannot be realised. It names the missing requirement instead:
+
+- **Applicant below the minimum age** – the applicable age is 18. A second applicant with a valid age does not replace this requirement.
+- **Age left empty** – no rate is shown, because age drives the repayment assumption.
+- **Equity below the required share** – the published profile requires at least 10 % of total costs.
+- **Loan-to-value ratio above the limit** – the published limit is 105 %.
+- **Household income not entered** – the rate still appears, because it does not depend on income, but the affordability assessment stays open.
+
+The limits live in the published financing profile. They can change between configuration releases without any change to your integration.
+
+## Repayment assumption
+
+The monthly rate combines the model interest rate with an initial repayment rate (`Anfangstilgung`). Both come from the financing profile. Repayment rates are calibrated against real market proposals and rise with age, so two applicants with the same income and equity can see different rates for the same unit.

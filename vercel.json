@@ -17,7 +17,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'none'; connect-src 'self'; font-src 'self'; frame-src https://widgets.hypo.tech; img-src 'self' data:; object-src 'none'; script-src 'self' https://widgets.hypo.tech; style-src 'self' 'unsafe-inline'; form-action 'none'; frame-ancestors 'none'"
+          "value": "default-src 'self'; base-uri 'none'; connect-src 'self'; font-src 'self'; frame-src https://widgets.hypo.tech; img-src 'self' data:; object-src 'none'; script-src 'self' https://widgets.hypo.tech 'sha256-ng8W1FnGVqbzCCV1hV2EGXSMN/WlYnkoQZy8x1kkcsM='; style-src 'self' 'unsafe-inline'; form-action 'none'; frame-ancestors 'none'"
         },
         {
           "key": "Referrer-Policy",
