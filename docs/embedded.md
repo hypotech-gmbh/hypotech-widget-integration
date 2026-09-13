@@ -53,6 +53,23 @@ data.
 | `hypotech:unit-change` | `{ unitId }` when the visitor selects another unit |
 | `hypotech:consultation-open` | `{ url }` when the visitor follows the link to hypo.tech |
 
+## The call to action
+
+The button "Persönliche Prüfung bei hypo.tech" is an ordinary link, not a script
+call:
+
+```html
+<a class="primary-action" href="https://www.hypo.tech/de/finanzierung?source=…" rel="nofollow noopener" target="_blank">
+```
+
+It works without JavaScript, opens a new tab, and carries `rel="nofollow"`. The
+`source` parameter is an unpersonal identifier for the partner and project; it
+contains nothing about the visitor.
+
+Because the link sits in your page's DOM, search engines can follow it. In the
+iframe integration the same link lives inside the frame and is therefore not
+attributed to your page.
+
 ## Differences from the iframe integration
 
 | | Iframe | Embedded |

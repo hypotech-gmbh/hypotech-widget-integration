@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1 – 2026-09-13
+
+- The call to action is a crawlable link to the financing page, qualified with nofollow
+- Documented the unpersonal `source` attribution parameter
+
 ## 1.2.0 – 2026-09-13
 
 - Embedded integration: the widget renders in the page flow instead of an iframe
