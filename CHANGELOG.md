@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 – 2026-09-13
+
+- Embedded integration: the widget renders in the page flow instead of an iframe
+- Corrected content security directives for both integrations
+- Documented the widget's own column layout and how to place it
+- Documented the cases in which no rate is shown
+
 ## 1.1.0 – 2026-09-13
 
 - Document what the widget shows: reference date, loan-to-value ratio, equity share and repayment term

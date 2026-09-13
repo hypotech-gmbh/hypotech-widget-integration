@@ -8,9 +8,9 @@ Check the browser console for `Content-Security-Policy` or `frame-ancestors`. Th
 
 The page renders but the frame never completes. Three causes, in order of likelihood:
 
-1. **Your page's `frame-src` does not allow `https://widgets.hypo.tech`.** A frame blocked this way produces no console entry; add the directive as described in [Security](security.md).
-2. **You are embedding a preview deployment.** Preview URLs are protected by Vercel authentication and return `X-Frame-Options: DENY`. Use the production endpoint.
-3. **The iframe URL carries an unapproved origin.** The `frame-ancestors` allowlist is per partner; send the exact origin to hypo.tech.
+1. **Your page blocks `https://widgets.hypo.tech`.** In embedded mode a missing `connect-src` is the usual cause and the console names it. In iframe mode a missing `frame-src` produces no console entry at all. Both are described in [Security](security.md).
+2. **You are embedding a preview deployment.** Preview URLs are protected by Vercel authentication and answer with `X-Frame-Options: DENY`. Use the production endpoint.
+3. **The origin is not approved.** The `frame-ancestors` allowlist is per partner; in iframe mode send the exact origin to hypo.tech.
 
 ## No monthly rate appears, but the widget works
 
@@ -35,6 +35,14 @@ Check that the origin is approved and the message uses `source: 'hypotech-host'`
 ## The helper script is blocked
 
 Allow `https://widgets.hypo.tech` in your page's `script-src` directive.
+
+## The widget renders but stays without data
+
+Its shell appears, but no unit, price or rate shows. The configuration fetch was blocked — allow `https://widgets.hypo.tech` in `connect-src`. This only affects the embedded integration; in iframe mode the configuration is loaded inside the frame.
+
+## The partner logo is missing
+
+Allow `https://widgets.hypo.tech` in `img-src`. As with the configuration, this only affects the embedded integration.
 
 ## Report a problem
 

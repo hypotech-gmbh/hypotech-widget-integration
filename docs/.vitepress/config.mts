@@ -35,6 +35,7 @@ export default defineConfig({
         text: 'Guide',
         items: [
           { text: 'Quickstart', link: '/integration' },
+          { text: 'Embedded', link: '/embedded' },
           { text: 'Events', link: '/messages' },
           { text: 'Security', link: '/security' },
           { text: 'Go live', link: '/onboarding' },
