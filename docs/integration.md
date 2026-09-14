@@ -1,44 +1,50 @@
-# Quickstart
+# Integration
 
-Two integrations are available. Both compute in the visitor's browser and
-transmit nothing.
+Two integrations. Both compute in the visitor's browser and transmit nothing.
 
 | | Embedded (recommended) | Iframe |
 | --- | --- | --- |
-| Rendering | In your page flow, isolated in a shadow root | Own document inside a frame |
-| Markup | `<hypo-financing …>` element | `<iframe>` created by the helper script |
-| Layout | Takes the width of its container | Fixed width of the frame |
-| Details | [Embedded integration](embedded.md) | This page |
+| Markup | `<hypo-financing>` element | `<iframe>` |
+| Rendering | Your page flow, isolated in a shadow root | Own document in a frame |
+| Height | Follows the content | Reported with `resize` |
 
-## Helper script
+## Embedded
 
 ```html
-<div id="finanzierungsorientierung"></div>
-
+<hypo-financing project="example-project" partner="example-partner" unit="7"></hypo-financing>
 <script src="https://widgets.hypo.tech/v1/embed.js"></script>
-<script>
-  const widget = HypotechWidget.mount('#finanzierungsorientierung', {
-    project: 'example-project',
-    partner: 'example-partner',
-    unit: 7,
-    parking: 'hub',
-    household: 'joint',
-  })
-</script>
 ```
 
-The helper creates the iframe, validates widget messages and keeps its height in sync.
+| Attribute | Example | Description |
+| --- | --- | --- |
+| `project` | `example-project` | Published project slug |
+| `partner` | `example-partner` | Published partner slug |
+| `unit` | `7` | Initial unit |
+| `parking` | `hub` | Initial parking option |
+| `household` | `single` or `joint` | Initial household mode |
 
-For the embedded integration the same script registers the `hypo-financing`
-element instead — see [Embedded integration](embedded.md). That variant needs no
-height synchronisation at all, because the widget simply follows the page flow.
+Change an instance later — for example from a unit table on your page:
 
-## Direct iframe
+```js
+document.querySelector('hypo-financing').configure({ unit: 4, parking: 'single' })
+```
+
+Events are dispatched on the element. None of them contains personal data.
+
+| Event | Detail |
+| --- | --- |
+| `hypotech:ready` | `{ project, partner, unitId }` |
+| `hypotech:unit-change` | `{ unitId }` |
+| `hypotech:consultation-open` | `{ url }` |
+
+The element fills its container and arranges itself in three columns from 900 px, two from 620 px, one below.
+
+## Iframe
 
 ```html
 <iframe
   id="hypotech-financing-widget"
-  src="https://widgets.hypo.tech/v1/widget/example-partner/?project=example-project&unit=7&parking=hub&household=joint"
+  src="https://widgets.hypo.tech/v1/widget/example-partner/?project=example-project&unit=7"
   title="Financing guidance by hypo.tech"
   loading="lazy"
   referrerpolicy="strict-origin-when-cross-origin"
@@ -47,74 +53,60 @@ height synchronisation at all, because the widget simply follows the page flow.
 ></iframe>
 ```
 
-Keep `referrerpolicy` and `sandbox` unchanged.
+Keep `sandbox` and `referrerpolicy` unchanged. Or let the helper script build
+the frame and keep its height in sync:
 
-## Options
+```html
+<div id="financing"></div>
+<script src="https://widgets.hypo.tech/v1/embed.js"></script>
+<script>
+  HypotechWidget.mount('#financing', { project: 'example-project', partner: 'example-partner', unit: 7 })
+</script>
+```
 
-| Option | Example | Description |
-| --- | --- | --- |
-| `project` | `example-project` | Published project slug |
-| `partner` | `example-partner` | Published partner slug |
-| `unit` | `7` | Initial unit |
-| `parking` | `hub` | Initial parking option |
-| `household` | `single` or `joint` | Initial household mode |
-
-Never put age, income, equity, assets or other personal data in the URL.
-
-## Update an instance
+The frame reports `ready`, `resize` and `unit-change` with `window.postMessage`.
+Validate origin, source window, project and partner, and never use `'*'` as the
+target origin:
 
 ```js
-widget.configure({
-  unit: 4,
-  parking: 'single',
-  household: 'joint',
+window.addEventListener('message', (event) => {
+  if (event.source !== frame.contentWindow || event.origin !== new URL(frame.src).origin) return
+  if (event.data?.source !== 'hypotech-widget') return
+  if (event.data.project !== 'example-project' || event.data.partner !== 'example-partner') return
+  if (event.data.type === 'resize') frame.style.height = `${event.data.height}px`
 })
 ```
 
-## Destroy an instance
+## Options
 
-```js
-widget.destroy()
-```
-
-This removes the iframe and its event listeners.
-
-## Placing the widget
-
-Give the widget a full-width container of its own. It then arranges itself in
-three columns from 900 px, two columns from 620 px and a single column below
-that. A container of about 750 px — the width of a three-fifth column in a
-typical builder layout — still works but stays in the two-column arrangement.
-
-If you want a unit table on your page to drive the widget, select the row and
-call `configure({ unit })`. The embedded variant can also be wrapped in a
-container you control; when the visitor selects a unit there, forward the call.
+Age, income, equity, assets and other personal data never belong in the URL or
+the markup — in neither integration.
 
 ## What the widget shows
 
-The widget displays an unverbindliche Modellrechnung (non-binding model calculation). Next to the monthly rate it discloses the figures that drive a lender's decision:
-
 | Figure | Meaning |
 | --- | --- |
-| Stand | Reference date of the financing assumptions, taken from the published financing profile |
-| Beleihungsauslauf | Loan amount in relation to the lending value (90 % of the purchase price) |
+| Monthly rate | Model calculation from purchase price, equity and the repayment assumption |
+| Stand | Reference date of the financing assumptions |
+| Beleihungsauslauf | Loan in relation to the lending value (90 % of the purchase price) |
 | Eigenkapitalanteil | Equity in relation to total costs, including ancillary acquisition costs |
 | Tilgungsverlauf | Calculated repayment term at a constant monthly payment |
 
-Your page does not need to do anything for these values. They arrive inside the iframe with the `ready` message.
+## When no rate appears
 
-## When the widget shows no rate
+The widget withholds the rate whenever it would describe a financing that
+cannot be realised, and names the missing requirement instead:
 
-The widget deliberately withholds the monthly rate whenever a figure would describe a financing that cannot be realised. It names the missing requirement instead:
+- applicant below 18 years, or age left empty
+- equity below the required share (10 % of total costs)
+- loan-to-value ratio above the limit (105 %)
+- no household income: the rate stays, the affordability assessment stays open
 
-- **Applicant below the minimum age** – the applicable age is 18. A second applicant with a valid age does not replace this requirement.
-- **Age left empty** – no rate is shown, because age drives the repayment assumption.
-- **Equity below the required share** – the published profile requires at least 10 % of total costs.
-- **Loan-to-value ratio above the limit** – the published limit is 105 %.
-- **Household income not entered** – the rate still appears, because it does not depend on income, but the affordability assessment stays open.
-
-The limits live in the published financing profile. They can change between configuration releases without any change to your integration.
+The limits come from the published financing profile and can change without
+touching your integration.
 
 ## Repayment assumption
 
-The monthly rate combines the model interest rate with an initial repayment rate (`Anfangstilgung`). Both come from the financing profile. Repayment rates are calibrated against real market proposals and rise with age, so two applicants with the same income and equity can see different rates for the same unit.
+The monthly rate combines the model interest rate with an initial repayment
+rate. Both come from the published profile and rise with age, so two applicants
+can see different rates for the same unit.

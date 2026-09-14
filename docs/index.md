@@ -3,22 +3,22 @@ layout: home
 
 hero:
   name: hypo.tech widget
-  text: Embed financing guidance in minutes.
-  tagline: A versioned, responsive iframe for property project pages. No API key. Personal inputs stay inside the widget.
+  text: Financing guidance for property project pages.
+  tagline: One snippet. Embedded in your page flow, or in an iframe. No API key, and no personal data leaves the browser.
   actions:
     - theme: brand
-      text: Quickstart
+      text: Integrate
       link: /integration
     - theme: alt
       text: Live example
-      link: /examples/helper-script/
+      link: /examples/embedded/
       target: _self
 
 features:
-  - title: Small API
-    details: Configure project, unit, parking and household. Listen for ready, resize and unit-change.
-  - title: Secure by default
-    details: Exact origin allowlist, sandboxed iframe and no personal data in URLs or host messages.
-  - title: Easy rollout
-    details: Send staging and production origins, test the integration and go live.
+  - title: One snippet
+    details: A script tag and a placeholder. Configure project, unit, parking and household.
+  - title: Nothing transmitted
+    details: Inputs are computed in the browser. No cookies, no storage, no personal data in URLs or events.
+  - title: Two integrations
+    details: Embedded (recommended) in your page flow, or an iframe for full isolation.
 ---

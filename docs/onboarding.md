@@ -1,29 +1,13 @@
 # Go live
 
-## 1. Send setup data
-
-Send hypo.tech:
-
-- project name,
-- staging and production origins,
-- preferred project slug,
-- technical contact.
-
-Do not send customer or financial data.
-
-## 2. Receive configuration
-
-hypo.tech provides the project slug, partner slug and ready-to-use embed snippet.
-
-## 3. Test
-
-- Desktop and mobile layout
-- Automatic height updates
-- Unit and parking selection
-- Single and joint household modes
-- Keyboard navigation
-- External-link notice
-
-## 4. Release
-
-After approval, hypo.tech adds the production origin to the allowlist. Any change to scheme, host or port requires a new approval.
+1. **Send setup data** — project name, staging and production origins, preferred
+   project slug, technical contact. No customer or financial data.
+2. **Receive the snippet** — hypo.tech publishes the project and partner slug and
+   sends the ready-to-use snippet. The embedded integration is the default; say
+   so if you prefer the iframe.
+3. **Test** — layout on desktop and mobile, unit and parking selection, single
+   and joint household modes, keyboard navigation, external-link notice. In
+   iframe mode, also check the automatic height adjustment.
+4. **Go live** — allow `https://widgets.hypo.tech` in your Content-Security-Policy
+   (see [Security](security.md)). In iframe mode hypo.tech additionally approves
+   your origins. Any change to scheme, host or port needs a new approval.

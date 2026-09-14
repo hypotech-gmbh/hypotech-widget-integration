@@ -1,6 +1,11 @@
 import { expect, test } from '@playwright/test'
 
 const exampleScript = `
+  class FakeFinancing extends HTMLElement {
+    configure() {}
+  }
+  if (!customElements.get('hypo-financing')) customElements.define('hypo-financing', FakeFinancing)
+
   window.HypotechWidget = {
     mount(host) {
       const frame = document.createElement('iframe')
@@ -19,19 +24,17 @@ test.beforeEach(async ({ page }) => {
 })
 
 for (const link of ['Live example', 'Examples']) {
-  test(`${link} opens the helper example instead of the docs 404 page`, async ({ page }) => {
+  test(`${link} opens the embedded example instead of the docs 404 page`, async ({ page }) => {
     await page.goto('./')
     await page.getByRole('link', { name: link, exact: true }).click()
 
-    await expect(page).toHaveURL(/\/docs\/examples\/helper-script\/$/)
-    await expect(page.getByRole('heading', { name: 'Helper script' })).toBeVisible()
-    await expect(page.getByRole('status')).toHaveText('Ready')
-    await expect(page.locator('iframe')).toHaveCount(1)
+    await expect(page).toHaveURL(/\/docs\/examples\/embedded\/$/)
+    await expect(page.getByRole('heading', { name: 'Embedded integration' })).toBeVisible()
     await expect(page.getByText('PAGE NOT FOUND')).toHaveCount(0)
   })
 }
 
-for (const example of ['helper-script', 'basic-iframe', 'dynamic-unit-selection']) {
+for (const example of ['embedded', 'helper-script']) {
   test(`serves the ${example} example at a clean URL`, async ({ page }) => {
     const response = await page.goto(`examples/${example}/`)
     expect(response?.status()).toBe(200)
@@ -41,9 +44,8 @@ for (const example of ['helper-script', 'basic-iframe', 'dynamic-unit-selection'
 }
 
 for (const [example, heading] of [
+  ['embedded', 'Embedded integration'],
   ['helper-script', 'Helper script'],
-  ['basic-iframe', 'Direct iframe'],
-  ['dynamic-unit-selection', 'Dynamic unit selection'],
 ]) {
   test(`keeps the legacy ${example}.html URL compatible`, async ({ page }) => {
     const response = await page.goto(`examples/${example}.html`)
@@ -51,3 +53,10 @@ for (const [example, heading] of [
     await expect(page.getByRole('heading', { name: heading })).toBeVisible()
   })
 }
+
+test('the iframe example mounts a frame and reports readiness', async ({ page }) => {
+  await page.goto('examples/helper-script/')
+
+  await expect(page.getByRole('status')).toHaveText('Ready')
+  await expect(page.locator('iframe')).toHaveCount(1)
+})
