@@ -2,53 +2,36 @@
 
 ## Rules
 
-- Never add personal data to the iframe URL.
-- Validate `event.origin` and `event.source` for every message.
-- Keep the documented `sandbox` and `referrerpolicy` attributes.
-- Load the widget only from the published HTTPS endpoint.
-- Do not attempt to read iframe contents.
+- Never put personal data into the URL, the markup or an event.
+- Load the widget only from `https://widgets.hypo.tech`.
+- Embedded: do not reach into the widget's shadow root.
+- Iframe: keep `sandbox` and `referrerpolicy`, validate `event.origin` and `event.source`, and never use `'*'` as the target origin.
 
-## Origin allowlist
+## Data boundary
 
-The widget's `Content-Security-Policy` only permits approved `frame-ancestors`. Send hypo.tech the exact origin for each environment:
+| Data | Where it stays | Where it goes |
+| --- | --- | --- |
+| Age, income, equity, assets | In the browser | Nowhere |
+| Unit, parking, household | In the browser, as unpersonal parameters | `widgets.hypo.tech`, to load the configuration |
+| IP address, user agent | Server logs of the deliverer | Vercel, region Frankfurt |
 
-```text
-https://www.partner.de
-https://staging.partner.de
-```
-
-Do not send wildcards or paths.
+No cookies, no local storage, no session recognition: two page views cannot be
+linked. Because nothing is stored on the device, no consent is required under
+§ 25 TDDDG — what your privacy notice needs is the information, not a gate.
 
 ## Separation between partners
 
-Every published project/partner combination has its own path and its own configuration:
+- Every published project/partner combination has its own path and its own configuration: `https://widgets.hypo.tech/v1/widget/<partner-slug>/`.
+- The code is identical for every partner. Only the configuration differs: project data, brand colours, legal texts, call to action.
+- A delivery contains only the combinations approved in the registry; everything else is removed from the package.
+- The widget refuses an unapproved combination and never falls back to another partner's configuration.
+- Configuration texts are rendered as text, never as markup. The call-to-action target is restricted to the financing page of hypo.tech, the logo path to the widget's own asset directory.
+- Revoking a partner takes effect with the next delivery: remove the registry entry and the origin, and the path is gone.
 
-```text
-https://widgets.hypo.tech/v1/widget/<partner-slug>/
-```
+If a partner needs the widget under their own subdomain, that is a hosting
+decision rather than a change to the integration. Talk to hypo.tech.
 
-- The code — helper script, modules, styles — is identical for every partner. Only the configuration differs: project data, brand colours, legal texts and the call to action.
-- A delivery contains **only the combinations approved in the registry**. Everything else is removed from the package, including files that nothing links to.
-- The widget refuses a combination that is not approved: it renders a neutral notice instead of a rate and never falls back to another partner's configuration.
-- Configuration texts are rendered as text, never as markup. The call-to-action target is restricted to the financing page of hypo.tech, and the logo path is restricted to the widget's own asset directory.
-- Nothing separates visitors between partners, because no visitor data reaches hypo.tech at all: inputs stay in the browser in both integration modes.
-- Revoking a partner takes effect with the next delivery. Remove the entry from the registry and the origin from the allowlist, and the path is gone.
-
-If a partner needs the widget to be served from their own subdomain, that is a
-hosting decision rather than a change to the integration: the embed contract
-stays exactly the same. Talk to hypo.tech.
-
-## Credentials
-
-The integration requires no API key or access token.
-
-## Reporting
-
-Use [GitHub private vulnerability reporting](https://github.com/hypotech-gmbh/hypotech-widget-integration/security/advisories/new). Never include real financial data.
-
-## What the embedding page must allow
-
-Your own `Content-Security-Policy` governs what the widget needs. Which directives are required depends on the integration:
+## What your page must allow
 
 ```text
 Embedded:  script-src  'self' https://widgets.hypo.tech;
@@ -59,29 +42,35 @@ Iframe:    script-src  'self' https://widgets.hypo.tech;
            frame-src          https://widgets.hypo.tech;
 ```
 
-- `script-src` loads the helper script and, in embedded mode, the widget's modules.
-- `connect-src` allows the configuration JSON to be fetched. It is only needed in embedded mode, where the configuration lives on a different origin than the page.
-- `img-src` allows the partner logo. Only needed in embedded mode.
-- `frame-src` allows the iframe. Only needed in iframe mode.
+Also allow inline styles (`style-src 'unsafe-inline'`): the widget applies the
+brand colours as an inline style. A `default-src` that includes
+`https://widgets.hypo.tech` covers all directives at once.
 
-If your policy sets a `default-src` that does not include `https://widgets.hypo.tech`, listing only `script-src` is not enough in embedded mode: the widget renders its shell but stays without data, and the console reports a refused connection.
+Two failures are easy to misread:
 
-Adding `https://widgets.hypo.tech` to `default-src` covers all of them.
+- **Embedded:** without `connect-src` the shell renders but stays without data. The console reports it.
+- **Iframe:** a missing `frame-src` produces **no console entry at all**. The frame stays empty and the widget shows its loading state.
 
-Also allow inline styles (`style-src 'unsafe-inline'` or `default-src` with `'unsafe-inline'`). The widget applies your brand colours as an inline style; without it the widget loads but stays uncoloured.
+Preview deployments answer with `X-Frame-Options: DENY` and cannot be embedded.
+Use the production endpoint.
 
-In iframe mode, a missing `frame-src` produces **no console entry at all** — the frame simply stays empty and the widget shows its loading state forever.
+## Origin allowlist
 
-## Outbound link
+For the iframe integration, send hypo.tech the exact origin of every
+environment. No wildcards, no paths:
 
-The call to action links to hypo.tech with `rel="nofollow noopener"`. The
-`nofollow` is deliberate: a widget distributed across many partner sites should
-not pass ranking signals, and a followable link on every install would amount to
-a distributed link scheme. Visitors are unaffected — the link works normally.
+```text
+https://www.partner.de
+https://staging.partner.de
+```
 
-If you want to reference hypo.tech editorially, do it in your own words outside
-the widget. That reference is yours and needs no `nofollow`.
+Any change to scheme, host or port needs a new approval. The embedded
+integration does not use this allowlist — there, your own CSP decides.
 
-## Preview deployments
+## Credentials
 
-Widget preview URLs are protected by Vercel authentication and answer every resource request with `X-Frame-Options: DENY`. They cannot be embedded. Test against the production endpoint, or run the widget locally.
+No API key, no access token.
+
+## Reporting
+
+Use [GitHub private vulnerability reporting](https://github.com/hypotech-gmbh/hypotech-widget-integration/security/advisories/new). Never include real financial data.

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 – 2026-09-14
+
+- Documentation restructured around the embedded integration, which is now the recommended way on every page
+- Merged the separate embedded and events pages into the integration page; the old URLs redirect
+- Trimmed security, go-live and troubleshooting to the essentials; troubleshooting is a symptom table
+- Added an embedded example and removed two redundant iframe examples
+- The documentation site now allows the widget's origin in `connect-src` and `img-src`, so its own examples can run the embedded integration
+
 ## 1.3.0 – 2026-09-14
 
 - Documented the separation between partners: one path per partner, only approved combinations in a delivery

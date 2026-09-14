@@ -1,49 +1,18 @@
 # Troubleshooting
 
-## The iframe is blocked
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| Embedded: shell renders, no unit, price or rate | `connect-src` blocked | allow `https://widgets.hypo.tech` in `connect-src` |
+| Embedded: partner logo missing | `img-src` blocked | allow `https://widgets.hypo.tech` in `img-src` |
+| Embedded: brand colours missing | inline styles blocked | allow `style-src 'unsafe-inline'` |
+| Iframe: stays on "Loading widget…" | `frame-src` missing — no console entry | allow `https://widgets.hypo.tech` in `frame-src` |
+| Iframe: frame stays empty | preview deployment, or origin not approved | use the production endpoint; send the exact origin |
+| Iframe: scrolls internally | height not adjusted | use the helper script or handle `resize` |
+| Helper script blocked | `script-src` | allow `https://widgets.hypo.tech` in `script-src` |
+| No rate although all inputs are filled | by design | the widget names the missing requirement, see [Integration](integration.md#when-no-rate-appears) |
+| Inputs seem ignored | age below 18, income of zero, age missing | by design — no placeholder values |
+| Wrong unit | `unit` is not a published numeric ID | invalid values fall back to the default unit |
+| `configure()` has no effect | unknown keys | only `unit`, `parking` and `household` are accepted |
+| Iframe: a message is ignored | origin not approved, or the message does not match | `source: 'hypotech-host'`, `type: 'configure'`, keys as above |
 
-Check the browser console for `Content-Security-Policy` or `frame-ancestors`. The exact host origin must be approved by hypo.tech.
-
-## The widget stays on "Loading widget…"
-
-The page renders but the frame never completes. Three causes, in order of likelihood:
-
-1. **Your page blocks `https://widgets.hypo.tech`.** In embedded mode a missing `connect-src` is the usual cause and the console names it. In iframe mode a missing `frame-src` produces no console entry at all. Both are described in [Security](security.md).
-2. **You are embedding a preview deployment.** Preview URLs are protected by Vercel authentication and answer with `X-Frame-Options: DENY`. Use the production endpoint.
-3. **The origin is not approved.** The `frame-ancestors` allowlist is per partner; in iframe mode send the exact origin to hypo.tech.
-
-## No monthly rate appears, but the widget works
-
-This is intentional. The widget withholds the rate when the constellation cannot be financed — for example when equity stays below the required share or the loan-to-value ratio exceeds the limit. The widget names the missing requirement. See [What the widget shows](integration.md#what-the-widget-shows).
-
-## Inputs are not accepted
-
-Applicant age below 18, income of zero and missing ages do not produce a rate or an affordability figure. This is by design: the widget never substitutes a placeholder value for a missing personal figure.
-
-## The iframe scrolls internally
-
-Use the helper script or handle `resize` messages as shown in [Events](messages.md).
-
-## The wrong unit is selected
-
-`unit` must be a published numeric unit ID. Invalid values fall back to the project's default unit.
-
-## A configure message is ignored
-
-Check that the origin is approved and the message uses `source: 'hypotech-host'`, `type: 'configure'` and only `unit`, `unitId`, `parking` or `household`.
-
-## The helper script is blocked
-
-Allow `https://widgets.hypo.tech` in your page's `script-src` directive.
-
-## The widget renders but stays without data
-
-Its shell appears, but no unit, price or rate shows. The configuration fetch was blocked — allow `https://widgets.hypo.tech` in `connect-src`. This only affects the embedded integration; in iframe mode the configuration is loaded inside the frame.
-
-## The partner logo is missing
-
-Allow `https://widgets.hypo.tech` in `img-src`. As with the configuration, this only affects the embedded integration.
-
-## Report a problem
-
-Open an [integration issue](https://github.com/hypotech-gmbh/hypotech-widget-integration/issues/new/choose) with synthetic test data only.
+Report a problem with synthetic test data only: [integration issue](https://github.com/hypotech-gmbh/hypotech-widget-integration/issues/new/choose).

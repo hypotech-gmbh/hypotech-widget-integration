@@ -25,18 +25,16 @@ export default defineConfig({
     siteTitle: false,
     search: { provider: 'local' },
     nav: [
-      { text: 'Quickstart', link: '/integration' },
-      { text: 'API', link: '/messages' },
-      { text: 'Examples', link: '/examples/helper-script/', target: '_self' },
+      { text: 'Integration', link: '/integration' },
+      { text: 'Security', link: '/security' },
+      { text: 'Examples', link: '/examples/embedded/', target: '_self' },
       { text: 'GitHub', link: 'https://github.com/hypotech-gmbh/hypotech-widget-integration' },
     ],
     sidebar: [
       {
         text: 'Guide',
         items: [
-          { text: 'Quickstart', link: '/integration' },
-          { text: 'Embedded', link: '/embedded' },
-          { text: 'Events', link: '/messages' },
+          { text: 'Integration', link: '/integration' },
           { text: 'Security', link: '/security' },
           { text: 'Go live', link: '/onboarding' },
           { text: 'Troubleshooting', link: '/troubleshooting' },
