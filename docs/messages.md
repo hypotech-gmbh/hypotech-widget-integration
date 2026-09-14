@@ -11,8 +11,8 @@ The iframe uses `window.postMessage`. Validate the exact origin, source window, 
   "source": "hypotech-widget",
   "type": "ready",
   "version": "1.0.0",
-  "project": "schoenauer-weg",
-  "partner": "heim-leben",
+  "project": "example-project",
+  "partner": "example-partner",
   "unitId": 7
 }
 ```
@@ -24,8 +24,8 @@ The iframe uses `window.postMessage`. Validate the exact origin, source window, 
   "source": "hypotech-widget",
   "type": "resize",
   "version": "1.0.0",
-  "project": "schoenauer-weg",
-  "partner": "heim-leben",
+  "project": "example-project",
+  "partner": "example-partner",
   "height": 760
 }
 ```
@@ -37,8 +37,8 @@ The iframe uses `window.postMessage`. Validate the exact origin, source window, 
   "source": "hypotech-widget",
   "type": "unit-change",
   "version": "1.0.0",
-  "project": "schoenauer-weg",
-  "partner": "heim-leben",
+  "project": "example-project",
+  "partner": "example-partner",
   "unitId": 4
 }
 ```
@@ -55,8 +55,8 @@ window.addEventListener('message', (event) => {
 
   const message = event.data
   if (!message || message.source !== 'hypotech-widget') return
-  if (message.project !== 'schoenauer-weg') return
-  if (message.partner !== 'heim-leben') return
+  if (message.project !== 'example-project') return
+  if (message.partner !== 'example-partner') return
 
   // Handle the message
 })

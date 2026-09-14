@@ -18,8 +18,8 @@ transmit nothing.
 <script src="https://widgets.hypo.tech/v1/embed.js"></script>
 <script>
   const widget = HypotechWidget.mount('#finanzierungsorientierung', {
-    project: 'schoenauer-weg',
-    partner: 'heim-leben',
+    project: 'example-project',
+    partner: 'example-partner',
     unit: 7,
     parking: 'hub',
     household: 'joint',
@@ -38,7 +38,7 @@ height synchronisation at all, because the widget simply follows the page flow.
 ```html
 <iframe
   id="hypotech-financing-widget"
-  src="https://widgets.hypo.tech/v1/widget/heim-leben/?project=schoenauer-weg&unit=7&parking=hub&household=joint"
+  src="https://widgets.hypo.tech/v1/widget/example-partner/?project=example-project&unit=7&parking=hub&household=joint"
   title="Financing guidance by hypo.tech"
   loading="lazy"
   referrerpolicy="strict-origin-when-cross-origin"
@@ -53,8 +53,8 @@ Keep `referrerpolicy` and `sandbox` unchanged.
 
 | Option | Example | Description |
 | --- | --- | --- |
-| `project` | `schoenauer-weg` | Published project slug |
-| `partner` | `heim-leben` | Published partner slug |
+| `project` | `example-project` | Published project slug |
+| `partner` | `example-partner` | Published partner slug |
 | `unit` | `7` | Initial unit |
 | `parking` | `hub` | Initial parking option |
 | `household` | `single` or `joint` | Initial household mode |

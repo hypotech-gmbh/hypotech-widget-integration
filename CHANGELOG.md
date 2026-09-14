@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0 – 2026-09-14
+
+- Documented the separation between partners: one path per partner, only approved combinations in a delivery
+- Samples use neutral placeholders instead of a specific partner configuration
+
 ## 1.2.1 – 2026-09-13
 
 - The call to action is a crawlable link to the financing page, qualified with nofollow
