@@ -1,6 +1,6 @@
 {
   "name": "hypotech-widget-integration",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "private": true,
   "description": "Public developer documentation for the hypo.tech financing widget.",
   "type": "module",

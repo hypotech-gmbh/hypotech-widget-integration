@@ -14,8 +14,8 @@ Public developer documentation and examples for the hypo.tech financing widget.
 <script src="https://widgets.hypo.tech/v1/embed.js"></script>
 <script>
   HypotechWidget.mount('#financing-widget', {
-    project: 'schoenauer-weg',
-    partner: 'heim-leben',
+    project: 'example-project',
+    partner: 'example-partner',
     unit: 7,
     parking: 'hub',
     household: 'joint',

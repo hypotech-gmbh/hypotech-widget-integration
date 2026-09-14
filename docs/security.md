@@ -19,6 +19,25 @@ https://staging.partner.de
 
 Do not send wildcards or paths.
 
+## Separation between partners
+
+Every published project/partner combination has its own path and its own configuration:
+
+```text
+https://widgets.hypo.tech/v1/widget/<partner-slug>/
+```
+
+- The code — helper script, modules, styles — is identical for every partner. Only the configuration differs: project data, brand colours, legal texts and the call to action.
+- A delivery contains **only the combinations approved in the registry**. Everything else is removed from the package, including files that nothing links to.
+- The widget refuses a combination that is not approved: it renders a neutral notice instead of a rate and never falls back to another partner's configuration.
+- Configuration texts are rendered as text, never as markup. The call-to-action target is restricted to the financing page of hypo.tech, and the logo path is restricted to the widget's own asset directory.
+- Nothing separates visitors between partners, because no visitor data reaches hypo.tech at all: inputs stay in the browser in both integration modes.
+- Revoking a partner takes effect with the next delivery. Remove the entry from the registry and the origin from the allowlist, and the path is gone.
+
+If a partner needs the widget to be served from their own subdomain, that is a
+hosting decision rather than a change to the integration: the embed contract
+stays exactly the same. Talk to hypo.tech.
+
 ## Credentials
 
 The integration requires no API key or access token.

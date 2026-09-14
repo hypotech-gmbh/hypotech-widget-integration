@@ -6,7 +6,7 @@ intermediate step. This is the recommended integration.
 ## Embed it
 
 ```html
-<hypo-financing project="schoenauer-weg" partner="heim-leben" unit="7" parking="hub"></hypo-financing>
+<hypo-financing project="example-project" partner="example-partner" unit="7" parking="hub"></hypo-financing>
 <script src="https://widgets.hypo.tech/v1/embed.js"></script>
 ```
 
@@ -20,8 +20,8 @@ below).
 
 | Attribute | Example | Description |
 | --- | --- | --- |
-| `project` | `schoenauer-weg` | Published project slug |
-| `partner` | `heim-leben` | Published partner slug |
+| `project` | `example-project` | Published project slug |
+| `partner` | `example-partner` | Published partner slug |
 | `unit` | `7` | Initially selected unit |
 | `parking` | `hub` | Initial parking option |
 | `household` | `single` or `joint` | Initial household mode |
