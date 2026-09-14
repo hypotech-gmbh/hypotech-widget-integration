@@ -82,6 +82,49 @@ window.addEventListener('message', (event) => {
 Age, income, equity, assets and other personal data never belong in the URL or
 the markup — in neither integration.
 
+## Customising
+
+Your partner profile controls the appearance. No partner-specific code runs
+inside the widget.
+
+| Setting | Effect |
+| --- | --- |
+| `theme.primary`, `theme.primaryDark`, `theme.success` | Brand colours |
+| `theme.fontFamily` | Font stack, as a plain CSS family list |
+| `theme.typeScale` | Factor between 0.9 and 1.3 on the embedded typography, default 1 |
+| `theme.radius` | `sharp`, `default` or `round` |
+| `logo`, `coBranding`, `cta`, `legal` | Logo, labels and legal texts |
+| `attribution.source` | Unpersonal parameter on the call to action |
+
+### CSS variables
+
+The widget sets these on its host element. Your own stylesheet can override
+them, so a page can adjust the widget without waiting for a configuration
+release:
+
+```css
+hypo-financing {
+  --hl-blue: #1b3a66;
+  --hl-blue-dark: #12294a;
+  --success: #17633f;
+  --radius: 10px;
+  --type-scale: 1.1;
+}
+```
+
+Values from the profile are the default; a rule on the host element wins.
+
+### Behaviour
+
+React to `hypotech:ready`, `hypotech:unit-change` and
+`hypotech:consultation-open`, and change unit, parking or household with
+`configure()`. That is the whole extension surface around the widget — there is
+no partner-specific code inside it.
+
+A new field or a different calculation is a platform change rather than a
+partner change: it belongs in the financing profile, with schema, tests and
+documentation, so that every partner is calculated the same way.
+
 ## What the widget shows
 
 | Figure | Meaning |
