@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1 – 2026-09-14
+
+- Documented the customising options: theme tokens in the partner profile and the public CSS variables on the host element
+- Named the extension surface around the widget and where a new field belongs
+
 ## 1.4.0 – 2026-09-14
 
 - Documentation restructured around the embedded integration, which is now the recommended way on every page
