@@ -1,6 +1,6 @@
 {
   "name": "hypotech-widget-integration",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "private": true,
   "description": "Public developer documentation for the hypo.tech financing widget.",
   "type": "module",
@@ -8,9 +8,11 @@
     "audit": "node scripts/audit-public.mjs",
     "docs:dev": "vitepress dev docs",
     "build": "node scripts/clean.mjs && vitepress build docs && node scripts/csp-hashes.mjs",
+    "deploy:aws": "node scripts/deploy-aws.mjs --target docs",
+    "deploy:plan": "node scripts/deploy-aws.mjs --target docs --dry-run",
     "docs:preview": "vitepress preview docs",
     "test:e2e": "playwright test",
-    "test": "npm run audit && npm run build"
+    "test": "npm run audit && npm run build && npm run deploy:plan"
   },
   "engines": {
     "node": "24.x"
