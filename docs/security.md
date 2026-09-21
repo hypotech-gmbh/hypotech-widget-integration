@@ -13,7 +13,7 @@
 | --- | --- | --- |
 | Age, income, equity, assets | In the browser | Nowhere |
 | Unit, parking, household | In the browser, as unpersonal parameters | `widgets.hypo.tech`, to load the configuration |
-| IP address, user agent | Server logs of the deliverer | Vercel, region Frankfurt |
+| IP address, user agent | Processed by the deliverer, no access logs kept | Amazon Web Services (Amazon CloudFront); files stored in Frankfurt (`eu-central-1`) |
 
 No cookies, no local storage, no session recognition: two page views cannot be
 linked. Because nothing is stored on the device, no consent is required under

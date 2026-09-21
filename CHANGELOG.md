@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.2 – 2026-09-21
+
+- The documentation and the widget are delivered by Amazon CloudFront from storage in Frankfurt (`eu-central-1`); no access logs and no analytics
+- Moved pages redirect in one step to their final address
+
 ## 1.4.1 – 2026-09-14
 
 - Documented the customising options: theme tokens in the partner profile and the public CSS variables on the host element

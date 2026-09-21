@@ -1,0 +1,50 @@
+name: Deploy documentation to AWS
+
+# Publishes every main revision to the documentation bucket behind
+# https://widgets.hypo.tech/docs/. Vercel keeps deploying the same revision
+# from vercel.json until it is retired.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: docs-aws-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Assume the publishing role
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          role-to-assume: arn:aws:iam::845687757229:role/hypotech-prod-widget-docs-github-deploy
+          role-session-name: docs-deploy-${{ github.run_id }}
+          allowed-account-ids: '845687757229'
+          aws-region: eu-central-1
+      - name: Publish to S3 and invalidate CloudFront
+        id: publish
+        run: npm run deploy:aws
+      - name: Check the documentation on the distribution
+        env:
+          EDGE_URL: ${{ steps.publish.outputs.edge_url }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error "$EDGE_URL/docs/" | grep -q '<title>hypo.tech widget</title>'
+          curl --fail --silent --show-error --output /dev/null "$EDGE_URL/docs/integration/"
+          curl --fail --silent --show-error --output /dev/null "$EDGE_URL/docs/examples/helper-script/"
+          test "$(curl --silent --output /dev/null --write-out '%{http_code} %{redirect_url}' "$EDGE_URL/docs/embedded/")" = "308 $EDGE_URL/docs/integration/"
