@@ -1,9 +1,8 @@
 // Publishes the built package (dist/) to its private S3 bucket behind
 // widgets.hypo.tech and invalidates the CloudFront cache afterwards.
 //
-// Headers and redirects still live in vercel.json: while Vercel remains the
-// rollback target, both platforms serve the same rules. This script translates
-// them into the contract of the CloudFront functions in front of the buckets:
+// Headers and redirects live in hosting.json. This script translates them into
+// the contract of the CloudFront functions in front of the buckets:
 //
 //   - pages are stored as <path>/index.html; <path>.html moves there
 //   - Content-Type and Cache-Control are native S3 metadata
@@ -188,10 +187,9 @@ function uploadOrder({ key, file }) {
 export async function planDeployment({ outputDirectory, policy, target }) {
   if (!TARGETS[target]) fail(`unknown target ${target}`)
   if (policy.cleanUrls !== true || policy.trailingSlash !== true) fail('the edge functions implement cleanUrls and trailingSlash only')
-  for (const { source } of policy.rewrites ?? []) {
-    // /docs/* is its own CloudFront behavior backed by the documentation bucket.
-    if (!String(source).startsWith('/docs/')) fail(`rewrite ${source} has no CloudFront equivalent`)
-  }
+  // /docs/* is its own CloudFront behavior backed by the documentation bucket;
+  // the edge rewrites nothing else.
+  if (policy.rewrites?.length) fail('rewrites have no CloudFront equivalent')
   const rules = (policy.headers ?? []).map(headerRule)
 
   const files = await listFiles(outputDirectory)
@@ -288,7 +286,7 @@ function option(name, fallback) {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const target = option('--target')
   const outputDirectory = path.resolve(root, option('--dist', 'dist'))
-  const policy = JSON.parse(await fs.readFile(path.join(root, 'vercel.json'), 'utf8'))
+  const policy = JSON.parse(await fs.readFile(path.join(root, 'hosting.json'), 'utf8'))
   const plan = await planDeployment({ outputDirectory, policy, target })
 
   if (process.argv.includes('--dry-run')) {

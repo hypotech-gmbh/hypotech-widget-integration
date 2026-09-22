@@ -3,7 +3,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const ignoredDirectories = new Set(['.git', '.vercel', 'dist', 'node_modules'])
+const ignoredDirectories = new Set(['.git', 'dist', 'node_modules'])
 const forbiddenExtensions = new Set(['.env', '.key', '.pem', '.p12', '.pfx', '.docx', '.pdf', '.png', '.jpg', '.jpeg', '.webp'])
 const sensitivePatterns = [
   { label: 'private key', pattern: /-----BEGIN [A-Z ]*PRIVATE KEY-----/ },
@@ -44,7 +44,7 @@ for (const file of files) {
     if (pattern.test(contents)) errors.push(`${relativePath}: possible sensitive content (${label})`)
   }
 
-  const runtimeUrls = contents.match(/https:\/\/(?:hypotech-widget\.vercel\.app|widgets\.hypo\.tech)[^\s"'<>)]*/g) || []
+  const runtimeUrls = contents.match(/https:\/\/widgets\.hypo\.tech[^\s"'<>)]*/g) || []
   for (const url of runtimeUrls) {
     if (/[?&](?:age|income|equity|assets)=/i.test(url)) errors.push(`${relativePath}: personal value in widget URL`)
   }
