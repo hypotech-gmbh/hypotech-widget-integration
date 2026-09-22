@@ -1,8 +1,7 @@
 name: Deploy documentation to AWS
 
 # Publishes every main revision to the documentation bucket behind
-# https://widgets.hypo.tech/docs/. Vercel keeps deploying the same revision
-# from vercel.json until it is retired.
+# https://widgets.hypo.tech/docs/.
 on:
   push:
     branches:

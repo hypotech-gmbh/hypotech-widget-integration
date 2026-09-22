@@ -39,7 +39,7 @@ The site uses [VitePress](https://vitepress.dev/) and builds below `/docs/`.
 Every merge to `main` builds the site and publishes it below `https://widgets.hypo.tech/docs/`
 (Amazon CloudFront, files stored in Frankfurt). `npm run deploy:plan` shows the published
 objects and their response headers without AWS access; the headers and redirects come from
-`vercel.json`.
+`hosting.json`.
 
 ## Public scope
 

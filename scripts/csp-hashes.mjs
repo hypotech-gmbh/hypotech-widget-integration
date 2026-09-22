@@ -5,7 +5,7 @@
 // zwischen Ctrl- und Cmd-Tastenhinweisen unterscheidet. Die Policy der
 // Doku-Seite erlaubt Inline-Skripte nicht; statt `'unsafe-inline'` freizugeben,
 // wird der Hash genau dieses Skripts erlaubt. Der Hash steht nach dem Build
-// fest und wird deshalb hier gepflegt – nicht von Hand in vercel.json.
+// fest und wird deshalb hier gepflegt – nicht von Hand in hosting.json.
 
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
@@ -13,7 +13,7 @@ import path from 'node:path'
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const outputDirectory = path.join(root, 'dist', 'docs')
-const vercelPath = path.join(root, 'vercel.json')
+const hostingPath = path.join(root, 'hosting.json')
 const inlineScriptPattern = /<script(?![^>]*\bsrc=)[^>]*>(.*?)<\/script>/gs
 const hashPattern = /'sha256-[A-Za-z0-9+/=]+'/g
 
@@ -42,13 +42,13 @@ if (!hashes.size) {
   process.exit(0)
 }
 
-const config = JSON.parse(await fs.readFile(vercelPath, 'utf8'))
+const config = JSON.parse(await fs.readFile(hostingPath, 'utf8'))
 const header = config.headers
   ?.flatMap((entry) => entry.headers ?? [])
   .find((entry) => entry.key === 'Content-Security-Policy')
 
 if (!header) {
-  console.error('Keine Content-Security-Policy in vercel.json gefunden.')
+  console.error('Keine Content-Security-Policy in hosting.json gefunden.')
   process.exit(1)
 }
 
@@ -71,5 +71,5 @@ if (updated === header.value) {
 }
 
 header.value = updated
-await fs.writeFile(vercelPath, `${JSON.stringify(config, null, 2)}\n`)
+await fs.writeFile(hostingPath, `${JSON.stringify(config, null, 2)}\n`)
 console.log(`✓ CSP um ${hashes.size} Inline-Skript-Hash(es) ergänzt: ${[...hashes].sort().join(', ')}`)
