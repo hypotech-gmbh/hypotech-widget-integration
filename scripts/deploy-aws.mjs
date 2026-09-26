@@ -66,6 +66,12 @@ export const DEFAULT_CACHE_CONTROL = 'public, max-age=0, s-maxage=86400, must-re
 export const TARGETS = {
   site: {
     required: ['index.html', 'errors/404.txt', 'v1/embed.js', 'v1/release.json'],
+    // CloudFront serves these for origin errors without running the
+    // viewer-response function, so metadata would reach the visitor as-is.
+    errorPages: ['errors/404.txt'],
+    // Partner packages are built with every release and handed over directly;
+    // they never reach the public bucket.
+    unpublished: ['self-hosted/', 'wordpress/'],
     owns: (key) => !key.startsWith('docs/'),
     // A preview build carries draft configuration and must never reach production.
     verify: async (directory) => {
@@ -73,7 +79,7 @@ export const TARGETS = {
       if (release.channel !== 'published') fail('only a production build (channel "published") can be deployed')
     },
   },
-  docs: { required: ['docs/index.html'], owns: (key) => key.startsWith('docs/'), verify: async () => {} },
+  docs: { required: ['docs/index.html'], errorPages: [], unpublished: [], owns: (key) => key.startsWith('docs/'), verify: async () => {} },
 }
 
 const REDIRECT_STATUSES = new Set([301, 302, 307, 308])
@@ -192,6 +198,7 @@ export async function planDeployment({ outputDirectory, policy, target }) {
   const present = new Set(files.map(({ relative }) => relative))
   const objects = new Map()
   for (const { absolute, relative } of files) {
+    if (TARGETS[target].unpublished.some((prefix) => relative.startsWith(prefix))) continue
     const key = objectKey(relative)
     // The explicit directory index wins over a page of the same name.
     if (key !== relative && present.has(key)) continue
@@ -200,7 +207,8 @@ export async function planDeployment({ outputDirectory, policy, target }) {
     const { metadata, cacheControl, contentType } = headersFor(publicPath(key), rules)
     const type = contentType ?? CONTENT_TYPES[extension]
     if (!type) fail(`no content type for ${relative}`)
-    objects.set(key, { key, file: absolute, contentType: type, cacheControl, metadata })
+    const errorPage = TARGETS[target].errorPages.includes(key)
+    objects.set(key, { key, file: absolute, contentType: type, cacheControl, metadata: errorPage ? {} : metadata })
   }
   // Redirects take precedence over files, as on Vercel. A redirect for a path of
   // the other bucket (the documentation's own "/" on Vercel) belongs to that bucket.
@@ -240,7 +248,7 @@ export async function publish({ plan, target, parameterName }) {
       's3api', 'put-object', '--bucket', bucket, '--key', key,
       ...(file ? ['--body', file] : []),
       '--content-type', contentType, '--cache-control', cacheControl,
-      '--metadata', JSON.stringify(metadata),
+      ...(Object.keys(metadata).length ? ['--metadata', JSON.stringify(metadata)] : []),
     ])
   })
   console.log(`✓ ${plan.length} objects published to ${bucket}`)
