@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.3 – 2026-10-05
+
+- Documented reserved and sold units: for projects set up on hypo.tech the widget shows them without a price and they cannot be selected; `ready` reports `unitId: null` when no unit is available
+- The embedded integration needs `https://www.hypo.tech` in `connect-src` to read the availability; the documentation site's own examples allow it
+
 ## 1.4.2 – 2026-09-21
 
 - The documentation and the widget are delivered by Amazon CloudFront from storage in Frankfurt (`eu-central-1`); no access logs and no analytics

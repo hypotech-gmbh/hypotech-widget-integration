@@ -33,11 +33,29 @@ Events are dispatched on the element. None of them contains personal data.
 
 | Event | Detail |
 | --- | --- |
-| `hypotech:ready` | `{ project, partner, unitId }` |
+| `hypotech:ready` | `{ project, partner, unitId }` — `unitId` is `null` when no unit is available |
 | `hypotech:unit-change` | `{ unitId }` |
 | `hypotech:consultation-open` | `{ url }` |
 
 The element fills its container and arranges itself in three columns from 900 px, two from 620 px, one below.
+
+### Reserved and sold units
+
+For projects set up on hypo.tech, the developer or sales team marks units as
+available, reserved or sold in the hypo.tech partner portal. The widget picks
+this up when it loads; no new configuration is needed:
+
+- Reserved and sold units keep their place in the unit list, show their status
+  instead of a price and cannot be selected.
+- If the unit you pass (`unit` attribute, `?unit=` or `configure()`) is no
+  longer available, the widget shows the default or the first available unit
+  and a short notice. `ready` and `unit-change` always report the unit that is
+  actually shown.
+- If no unit is available, the widget replaces the calculation with a short
+  notice and a link to the general financing page of hypo.tech.
+
+Keep your own price list in sync with the partner portal: the widget hides
+prices only inside the widget.
 
 ## Iframe
 
