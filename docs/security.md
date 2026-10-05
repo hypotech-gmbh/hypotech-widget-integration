@@ -14,14 +14,9 @@
 | Age, income, equity, assets | In the browser | Nowhere |
 | Unit, parking, household | In the browser, as unpersonal parameters | `widgets.hypo.tech`, to load the configuration |
 | IP address, user agent | Processed by the deliverer, no access logs kept | Amazon Web Services (Amazon CloudFront); files stored in Frankfurt (`eu-central-1`) |
-| Unit availability (available, reserved, sold) | Public status on hypo.tech, maintained by the developer or sales team | Only for projects set up on hypo.tech: fetched from `www.hypo.tech` when the widget loads (iframe and embedded) or by your server (WordPress plugin) |
 
 No cookies, no local storage, no session recognition: two page views cannot be
-linked. For projects set up on hypo.tech, the widget fetches the public
-availability of the units once when it loads, without cookies, referrer or
-inputs, so that reserved and sold units appear without a price. With the
-WordPress plugin, your web server fetches it and visitors load nothing from
-hypo.tech. Because nothing is stored on the device, no consent is required under
+linked. Because nothing is stored on the device, no consent is required under
 § 25 TDDDG — what your privacy notice needs is the information, not a gate.
 
 ## Separation between partners
@@ -40,7 +35,7 @@ decision rather than a change to the integration. Talk to hypo.tech.
 
 ```text
 Embedded:  script-src  'self' https://widgets.hypo.tech;
-           connect-src 'self' https://widgets.hypo.tech https://www.hypo.tech;
+           connect-src 'self' https://widgets.hypo.tech;
            img-src     'self' https://widgets.hypo.tech;
 
 Iframe:    script-src  'self' https://widgets.hypo.tech;
@@ -54,7 +49,6 @@ brand colours as an inline style. A `default-src` that includes
 Two failures are easy to misread:
 
 - **Embedded:** without `connect-src` the shell renders but stays without data. The console reports it.
-- **Embedded:** without `https://www.hypo.tech` in `connect-src`, the widget cannot read the availability of the units. It then shows every unit of the configuration with its price, including reserved and sold ones, and reports the reason once in the console.
 - **Iframe:** a missing `frame-src` produces **no console entry at all**. The frame stays empty and the widget shows its loading state.
 
 Preview deployments answer with `X-Frame-Options: DENY` and cannot be embedded.

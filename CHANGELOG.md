@@ -2,8 +2,7 @@
 
 ## 1.4.3 – 2026-10-05
 
-- Documented reserved and sold units: for projects set up on hypo.tech the widget shows them without a price and they cannot be selected; `ready` reports `unitId: null` when no unit is available
-- The embedded integration needs `https://www.hypo.tech` in `connect-src` to read the availability; the documentation site's own examples allow it
+- Documented that the widget does not read the sales status from the hypo.tech partner portal: the hosted widget shows every unit of the configuration, and with the WordPress plugin or a self-hosted package the website marks reserved and sold units itself, separately from the partner portal
 
 ## 1.4.2 – 2026-09-21
 

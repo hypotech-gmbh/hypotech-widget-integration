@@ -33,29 +33,11 @@ Events are dispatched on the element. None of them contains personal data.
 
 | Event | Detail |
 | --- | --- |
-| `hypotech:ready` | `{ project, partner, unitId }` — `unitId` is `null` when no unit is available |
+| `hypotech:ready` | `{ project, partner, unitId }` |
 | `hypotech:unit-change` | `{ unitId }` |
 | `hypotech:consultation-open` | `{ url }` |
 
 The element fills its container and arranges itself in three columns from 900 px, two from 620 px, one below.
-
-### Reserved and sold units
-
-For projects set up on hypo.tech, the developer or sales team marks units as
-available, reserved or sold in the hypo.tech partner portal. The widget picks
-this up when it loads; no new configuration is needed:
-
-- Reserved and sold units keep their place in the unit list, show their status
-  instead of a price and cannot be selected.
-- If the unit you pass (`unit` attribute, `?unit=` or `configure()`) is no
-  longer available, the widget shows the default or the first available unit
-  and a short notice. `ready` and `unit-change` always report the unit that is
-  actually shown.
-- If no unit is available, the widget replaces the calculation with a short
-  notice and a link to the general financing page of hypo.tech.
-
-Keep your own price list in sync with the partner portal: the widget hides
-prices only inside the widget.
 
 ## Iframe
 
@@ -152,6 +134,21 @@ documentation, so that every partner is calculated the same way.
 | Beleihungsauslauf | Loan in relation to the lending value (90 % of the purchase price) |
 | Eigenkapitalanteil | Equity in relation to total costs, including ancillary acquisition costs |
 | Tilgungsverlauf | Calculated repayment term at a constant monthly payment |
+
+## Reserved and sold units
+
+The hosted widget, embedded and in the iframe, shows every unit of the published
+configuration with its price. It does not read the sales status you keep in the
+hypo.tech partner portal; that status applies to the pages on hypo.tech only. To
+take a unit out of the hosted widget, ask hypo.tech to update the project
+configuration, and keep your own price list in sync.
+
+With the hypo.tech WordPress plugin or a self-hosted package, your website marks
+units as reserved or sold itself: in WordPress under Tools → HypoTech Wohnungen,
+otherwise in a JSON file on your own origin. These marks apply only to the
+widget on your website and are kept separately from the partner portal, so
+update both when a unit is reserved or sold. The plugin and the package explain
+the details in their own instructions.
 
 ## When no rate appears
 
