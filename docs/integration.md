@@ -135,6 +135,21 @@ documentation, so that every partner is calculated the same way.
 | Eigenkapitalanteil | Equity in relation to total costs, including ancillary acquisition costs |
 | Tilgungsverlauf | Calculated repayment term at a constant monthly payment |
 
+## Reserved and sold units
+
+The hosted widget, embedded and in the iframe, shows every unit of the published
+configuration with its price. It does not read the sales status you keep in the
+hypo.tech partner portal; that status applies to the pages on hypo.tech only. To
+take a unit out of the hosted widget, ask hypo.tech to update the project
+configuration, and keep your own price list in sync.
+
+With the hypo.tech WordPress plugin or a self-hosted package, your website marks
+units as reserved or sold itself: in WordPress under Tools → HypoTech Wohnungen,
+otherwise in a JSON file on your own origin. These marks apply only to the
+widget on your website and are kept separately from the partner portal, so
+update both when a unit is reserved or sold. The plugin and the package explain
+the details in their own instructions.
+
 ## When no rate appears
 
 The widget withholds the rate whenever it would describe a financing that

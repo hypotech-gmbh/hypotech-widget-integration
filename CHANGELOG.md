@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3 – 2026-10-05
+
+- Documented that the widget does not read the sales status from the hypo.tech partner portal: the hosted widget shows every unit of the configuration, and with the WordPress plugin or a self-hosted package the website marks reserved and sold units itself, separately from the partner portal
+
 ## 1.4.2 – 2026-09-21
 
 - The documentation and the widget are delivered by Amazon CloudFront from storage in Frankfurt (`eu-central-1`); no access logs and no analytics
